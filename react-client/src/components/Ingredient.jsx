@@ -14,15 +14,23 @@ import {
 
 // This renders an individual ingredient card
 const Ingredient = props => {
+  
+  const { addToGroceryList, handleRecipes, user } = props
+
   const handleRecipesAndRedirect = selectedIngredient => {
-    const { handleRecipes } = props;
+    // const { handleRecipes } = props;
     // use App.Jsx's handleRecipes function which sends an api request to get the recipes with the selectedIngredient
     handleRecipes(selectedIngredient)
       .then(() => props.history.push("/recipe-list"))
       .catch(err => console.error(err));
   };
 
+  // const addToCart = (item) => {
+  //   addToGroceryList(item);
+  // }
+
   return props.ingredients.map(ingredient => {
+    // const { addToGroceryList } = props;
     return (
       <Col
         xl={{ size: 3, offset: 0 }}
@@ -31,10 +39,12 @@ const Ingredient = props => {
         xs={{ size: 12 }}
         className="mb-3"
       >
-        <Card id="ingredient-card">
+        <Card id="ingredient-card" key={ingredient.id}>
           <CardImg top width="100%" src={ingredient.URL} alt="Card image cap" />
           <CardBody className="bg-light">
-            <CardTitle className="card-title">{ingredient.Name}</CardTitle>
+            <CardTitle className="card-title">{ingredient.Name}
+              <Button className="float-right ml-auto card-button" onClick={() => addToGroceryList(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
+            </CardTitle>
             <CardText>{ingredient.Description}</CardText>
             <hr></hr>
             <Button
@@ -48,12 +58,6 @@ const Ingredient = props => {
               className="card-button col-12"
             >
               How to prepare them
-            </Button>
-            <Button
-              onClick={console.log('penis')}
-              className="card-button col-12"
-            >
-              Add to grocery list
             </Button>
           </CardBody>
         </Card>
