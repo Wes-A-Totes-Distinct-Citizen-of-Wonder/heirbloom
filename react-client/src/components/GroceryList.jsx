@@ -45,11 +45,11 @@ class GroceryList extends React.Component {
         return(
           <Fragment>
               <NavBar user={this.props.user}></NavBar>
-            <Container fluid>
+            <Container>
           <Row className='mt-10 ml-1'>
               <h3>GROCERY LIST</h3>
-          <Table bordered hover>
-            <thead>
+          <Table bordered hover >
+            <thead style={{backgroundColor: '#F7882F', color: 'white'}}>
               <tr>
               <th>Image</th>
               <th>Ingredient</th>
