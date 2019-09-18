@@ -83,7 +83,6 @@ app.post('/api/localIngredients', (req, res) => {
           const {
             region,
           } = stateObj[0];
-
           function getMonthWord() {
             const dt = new Date();
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

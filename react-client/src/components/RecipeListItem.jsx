@@ -36,7 +36,6 @@ const RecipeListItem = props => {
               <a href={source_url} target="_blank">
                 {title}
               </a>
-
               <Button
                 color="white"
                 className="far fa-heart float-right text-danger"
