@@ -20,7 +20,6 @@ const IngredientList = props => {
       <NavBar user={user} />
       <Container fluid>
         <Row className="mt-10 ml-1">
-
             <h1 className="headline">
               Here&rsquo;s what&rsquo;s fresh in {city}.
             </h1>
