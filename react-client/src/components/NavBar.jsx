@@ -64,19 +64,6 @@ class NavBar extends Component {
             {/* if user props is passed down (meaning a user is logged-in), show this component) */}
             {user && (
               <NavItem>
-                <NavLink onClick={() => history.push("/grocery-list")}>
-                  <i
-                    className="fas fa-shopping-cart fa-2x"
-                    id="grocery-icon"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Time to make some groceries"
-                  ></i>
-                </NavLink>
-              </NavItem>
-            )}
-            {user && (
-              <NavItem>
                 <NavLink onClick={() => history.push("/market-list")}>
                   <i
                     className="fas fa-map-marker-alt fa-2x"
@@ -84,6 +71,19 @@ class NavBar extends Component {
                     data-toggle="tooltip"
                     data-placement="top"
                     title="Find a market near you."
+                  ></i>
+                </NavLink>
+              </NavItem>
+            )}
+             {user && (
+              <NavItem>
+                <NavLink onClick={() => history.push("/grocery-list")}>
+                  <i
+                    className="fas fa-shopping-cart fa-2x"
+                    id="grocery-icon"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Time to make some groceries"
                   ></i>
                 </NavLink>
               </NavItem>

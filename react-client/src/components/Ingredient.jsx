@@ -21,6 +21,10 @@ const Ingredient = props => {
       .catch(err => console.error(err));
   };
 
+  const addToGroceries = props => {
+    console.log('groceries')
+  }
+
   return props.ingredients.map(ingredient => {
     return (
       <Col
@@ -51,7 +55,7 @@ const Ingredient = props => {
               How to prepare them
             </Button>
             <Button
-              onClick={console.log('whoooohoooo!!')}
+              onClick={addToGroceries}
               className="card-button col-12"
             >
               Add to Grocery List

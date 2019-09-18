@@ -312,6 +312,7 @@ class App extends Component {
           <PrivateRoute
           path='/grocery-list'
           ingredients={ingredients}
+          isAuthenticated={isAuthenticated} 
           userLocation={userLocation}
           user={user}
           component={GroceryList}

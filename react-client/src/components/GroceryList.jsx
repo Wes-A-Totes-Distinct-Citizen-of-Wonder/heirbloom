@@ -1,9 +1,22 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { withRouter } from "react-router-dom";
+import NavBar from "./NavBar.jsx";
 import "../App.css";
 import {
-    Button,
-    Table,
+  Button,
+  Table,
+  Container,
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from "reactstrap";
 import Axios from "axios";
 
@@ -17,6 +30,9 @@ class GroceryList extends React.Component {
         this.toggleBasket= this.toggleBasket.bind(this);
        
     }
+    componentDidMount() {
+      window.scrollTo(0, 0);
+    }
 
     toggleBasket() {
 
@@ -25,9 +41,14 @@ class GroceryList extends React.Component {
     //pass ingredientsId, userId, to david on back end
 
     render() {
-
         return(
-          <div>GROCERY LIST</div>
+
+          <Fragment>
+            <NavBar user={this.props.user} />
+            <div>GROCERY LIST</div>
+          </Fragment>
+
+         
       //       <Table striped>
       //   <thead>
       //     <tr>
@@ -63,4 +84,4 @@ class GroceryList extends React.Component {
     }
 }
 
-export default GroceryList;
+export default withRouter(GroceryList);
