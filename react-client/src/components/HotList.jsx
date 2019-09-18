@@ -16,11 +16,6 @@ class HotList extends React.Component {
             recipes: [],
         }
         this.toggleHot= this.toggleHot.bind(this);
-        this.getSomeHotStuff= this.getSomeHotStuff.bind(this);
-    }
-
-    getSomeHotStuff() {
-        
     }
 
     toggleHot() {

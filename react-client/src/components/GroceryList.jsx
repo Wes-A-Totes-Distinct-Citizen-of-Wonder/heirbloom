@@ -29,19 +29,35 @@ class GroceryList extends React.Component {
           groceries: []
         }
         this.toggleBasket= this.toggleBasket.bind(this);
-       
+        this.makeGroceries= this.makeGroceries.bind(this);
     }
     componentDidMount() {
       window.scrollTo(0, 0);
     }
 
-    toggleBasket() {
+    toggleBasket () {
 
+    }
+
+    makeGroceries() {
+      return Axios.get('/')
+      .then(response => {
+        this.setState({
+          groceries: response.data
+        })
+      })
     }
 
     //pass ingredientsId, userId, to david on back end
 
     render() {
+      const { groceries } =this.state;
+      const groceryItem = groceries.map(grocery => (
+              <tr>
+                <td>{grocery.URL}</td>
+                <td>{grocery.Name}</td>
+              </tr>
+      ))
         return(
           <Fragment>
               <NavBar user={this.props.user}></NavBar>
@@ -56,18 +72,7 @@ class GroceryList extends React.Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Mark</td>
-                <td>Otto</td>
-              </tr>
-              <tr>
-                <td>Jacob</td>
-                <td>Thornton</td>
-              </tr>
-              <tr>
-                <td>Larry</td>
-                <td>the Bird</td>
-              </tr>
+              {groceryItem}
             </tbody>
           </Table>
           </Row>
