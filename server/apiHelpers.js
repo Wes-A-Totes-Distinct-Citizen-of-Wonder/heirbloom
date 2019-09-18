@@ -36,7 +36,6 @@ const getUserCoordinates = (zip) => axios.get(`https://public.opendatasoft.com/a
 *but have left the framework here in case legacy wants to build that out.
 */
 const getRecipes = (ingredientsArray) => {
-
   let ingredientsStr = '';
   ingredientsArray.forEach((ingredient, index) => {
     ingredientsStr += ingredient.split(' ').join('%20').toLowerCase();
