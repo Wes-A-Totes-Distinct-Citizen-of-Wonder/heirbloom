@@ -50,12 +50,12 @@ const Ingredient = props => {
             >
               How to prepare them
             </Button>
-            {/* <Button
-              onClick={}
+            <Button
+              onClick={console.log('whoooohoooo!!')}
               className="card-button col-12"
             >
               Add to Grocery List
-            </Button> */}
+            </Button>
           </CardBody>
         </Card>
       </Col>
