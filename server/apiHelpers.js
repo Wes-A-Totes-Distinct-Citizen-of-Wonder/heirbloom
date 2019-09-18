@@ -36,23 +36,19 @@ const getUserCoordinates = (zip) => axios.get(`https://public.opendatasoft.com/a
 *but have left the framework here in case legacy wants to build that out.
 */
 const getRecipes = (ingredientsArray) => {
-  if (ingredientsArray.length === 1) {
-    return axios.get(`https://www.food2fork.com/api/search?key=${FOOD2FORKKEY}&q=${ingredientsArray[0]}`)
-      .then((recipes) => {
-        return recipes;
-      })
-      .catch((err) => console.error(err));
-  }
-  if (ingredientsArray.length === 2) {
-    return axios.get(`https://www.food2fork.com/api/search?key=${FOOD2FORKKEY}&q=${ingredientsArray[0], ingredientsArray[1]}`)
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
-  }
-  if (ingredientsArray.length === 3) {
-    return axios.get(`https://www.food2fork.com/api/search?key=${FOOD2FORKKEY}&q=${ingredientsArray[0], ingredientsArray[1], ingredientsArray[2]}`)
-      .then((res) => res.send(res.data.recipes))
-      .catch((err) => console.error(err));
-  }
+
+  let ingredientsStr = '';
+  ingredientsArray.forEach((ingredient, index) => {
+    ingredientsStr += ingredient.split(' ').join('%20').toLowerCase();
+    if (ingredientsArray.length > 1 && index < ingredientsArray.length - 1) {
+      ingredientsStr += ', ';
+    }
+  });
+  return axios.get(`https://www.food2fork.com/api/search?key=${FOOD2FORKKEY}&q=${ingredientsStr}`)
+    .then((recipes) => {
+      return recipes;
+    })
+    .catch((err) => console.error(err));
 };
 
 module.exports = {
