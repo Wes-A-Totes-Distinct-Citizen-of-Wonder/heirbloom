@@ -25,48 +25,60 @@ class HotList extends React.Component {
             collapse: false,
             recipes: [],
         }
-        this.toggleHot= this.toggleHot.bind(this);
-        this.getSomeHotStuff= this.getSomeHotStuff.bind(this);
+        this.toggleHot = this.toggleHot.bind(this);
+        this.getSomeHotStuff = this.getSomeHotStuff.bind(this);
     }
 
     getSomeHotStuff() {
-        
+
     }
 
     toggleHot() {
         return Axios.get('/hotList')
-        .then(response => {
-            this.setState({
-                recipes: response.data,
-                collapse: !this.state.collapse
+            .then(response => {
+                this.setState({
+                    recipes: response.data,
+                    collapse: !this.state.collapse
+                })
             })
-        })
     }
 
     render() {
         const { recipes } = this.state;
+        const { user, addToFavorites } = this.props;
+        // const { title, image_url, publisher, source_url } = recipe || {};
         const hotFive = recipes.map(recipe => (
             <Col sm='2'>
-            <Card>
-                <CardBody>
-                    <CardImg src={recipe.recipe_image} top width='10%'>
-                    </CardImg>
-                    <CardTitle>{recipe.recipe_name}</CardTitle>
-                    <CardSubtitle>{recipe.recipe_url}</CardSubtitle>
-                </CardBody>
-            </Card>
+                <Card>
+                    <CardBody>
+                        <CardImg src={recipe.recipe_image} top width='10%'>
+                        </CardImg>
+                        <CardTitle className="card-title">
+                        <a href={recipe.recipe_url} target="_blank">
+                            {recipe.recipe_name}
+                            </a>
+                            <Button
+                                color="white"
+                                className="far fa-heart float-right text-danger"
+                                onClick={() =>
+                                    addToFavorites([recipe.recipe_name, recipe.recipe_image, recipe.recipe_url, user.id])
+                                }
+                            ></Button></CardTitle>
+                        <CardSubtitle>Favorited by {recipe.count} users</CardSubtitle>
+                    </CardBody>
+                </Card>
             </Col>
         ));
         return (
             <div>
-            <Button className="fas fa-fire fa-2x float-right" color="danger" title="Top 5 Recipes" onClick={this.toggleHot}></Button>
-            <Collapse isOpen={this.state.collapse}>
-                <h5>TOP FIVE HOTTTTTTTEST RECIPES:</h5>
-                <Row>
-                    {hotFive}
-                </Row>
-            </Collapse>
-            <hr/>
+                <Button className="fas fa-fire fa-2x float-right" color="danger" title="Top 5 Recipes" onClick={this.toggleHot}></Button>
+                <Collapse isOpen={this.state.collapse}>
+                    <h2 style={{color: 'rgb(235, 28, 49)', fontFamily: 'Abril Fatface', fontWeight: '900'}}>TOP FIVE HOTEST RECIPES:</h2>
+                    <Row>
+                        {hotFive}
+                    </Row>
+                </Collapse>
+                <hr />
             </div>
         );
     }

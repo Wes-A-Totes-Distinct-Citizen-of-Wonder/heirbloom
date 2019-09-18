@@ -265,6 +265,7 @@ class App extends Component {
             component={IngredientList}
             setAuth={this.setAuthentication}
             handleRecipes={this.handleRecipes}
+            addToFavorites={this.addToFavorites}
           />
           <PrivateRoute
             path="/market-list"
