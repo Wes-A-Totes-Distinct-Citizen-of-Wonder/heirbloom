@@ -40,7 +40,7 @@ class HotList extends React.Component {
         ));
         return (
             <div>
-            <Button className="float-right" onClick={this.toggleHot}>Check it</Button>
+            <Button className=" fad fa-fire float-right" onClick={this.toggleHot}>Check it</Button>
             <Collapse isOpen={this.state.collapse}>
                 <ul>
                     {hotFive}
