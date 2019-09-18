@@ -106,6 +106,9 @@ const UsersRecipes = sequelize.define('users_recipes', {
       model: favRecipes,
       key: 'id',
     },
+    notes: {
+      type: Sequelize.STRING,
+    },
   },
   notes: {
     type: Sequelize.STRING,
@@ -266,6 +269,40 @@ const Ingredients = sequelize.define('ingredients', {
   timeStamps: false,
 });
 
+
+const groceryList = sequelize.define('grocery_list', {
+  id: {
+    type: Sequelize.INTEGER(11),
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  userId: {
+    type: Sequelize.INTEGER(11),
+    allowNull: false,
+    foreignKey: true,
+    references: {
+      model: Users,
+      key: 'id',
+    },
+  },
+  ingredientId: {
+    type: Sequelize.INTEGER(11),
+    allowNull: false,
+    foreignKey: true,
+    references: {
+      model: Ingredients,
+      key: 'id',
+    },
+  },
+}, {
+  freezeTableName: true,
+  timeStamps: false,
+});
+
+Users.belongsToMany(Ingredients, { through: 'grocery_list' });
+Ingredients.belongsToMany(Users, { through: 'grocery_list' });
+// this query will select the top 5 most favorited recipes among users(it will only select 
+// recipes favorited by MORE than one user)
 const hotQuery = `SELECT 
 f.*, c.count
 FROM
@@ -281,6 +318,8 @@ LIMIT 5) AS c
 ON f.id = c.recipeId;
 `;
 
+// const hotQuery = 'select * from users_recipes';
+
 // sync all of the models
 Users.sync();
 favRecipes.sync();
@@ -288,6 +327,7 @@ UsersRecipes.sync();
 Regions.sync();
 States.sync();
 Ingredients.sync();
+groceryList.sync();
 
 
 // export all of the models
@@ -297,4 +337,6 @@ module.exports.UsersRecipes = UsersRecipes;
 module.exports.Regions = Regions;
 module.exports.States = States;
 module.exports.Ingredients = Ingredients;
+module.exports.groceryList = groceryList;
 module.exports.hotList = sequelize.query(hotQuery);
+module.exports.sequelize = sequelize;

@@ -8,6 +8,7 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
+  Input,
   Button
 } from "reactstrap";
 
@@ -38,8 +39,6 @@ const Ingredient = props => {
           <CardImg top width="100%" src={ingredient.URL} alt="Card image cap" />
           <CardBody className="bg-light">
             <CardTitle className="card-title">{ingredient.Name}</CardTitle>
-
-            <hr></hr>
             <CardText>{ingredient.Description}</CardText>
             <hr></hr>
             <Button

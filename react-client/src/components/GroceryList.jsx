@@ -33,6 +33,7 @@ class GroceryList extends React.Component {
     }
     componentDidMount() {
       window.scrollTo(0, 0);
+      this.makeGroceries();
     }
 
     toggleBasket () {
@@ -40,7 +41,8 @@ class GroceryList extends React.Component {
     }
 
     makeGroceries() {
-      return Axios.get('/')
+      const { user } = this.props;
+      return Axios.get(`/api/groceryList?ID=${user.id}`)
       .then(response => {
         this.setState({
           groceries: response.data

@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const Sequelize = require('sequelize');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -82,7 +83,6 @@ app.post('/api/localIngredients', (req, res) => {
           const {
             region,
           } = stateObj[0];
-
           function getMonthWord() {
             const dt = new Date();
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -194,7 +194,7 @@ app.post('/api/removeFavRecipe', (req, res) => {
 app.get('/hotList', (req, res) => {
   models.hotList
     .then((hottestList) => {
-      res.status(201).send(hottestList[0]);
+      res.status(201).send(hottestList);
     })
     .catch((err) => {
       console.error(err);
@@ -215,6 +215,43 @@ app.post('/api/Notes', (req, res) => {
     });
 });
 
+app.post('/api/groceryList', (req, res) => {
+  models.groceryList.create({
+    userId: req.body.id,
+    ingredientId: req.body.ingredientId,
+  })
+    .then((result) => {
+      console.log(result)
+      res.status(201).send('ingredient added')
+    })
+    .catch((err) => console.error(err));
+});
+
+app.get('/api/groceryList/:id', (req, res) => {
+  const { Op } = Sequelize;
+  models.groceryList.findAll({
+    where: {
+      userId: req.body.id,
+    },
+  })
+    .then((result) => {
+      const ingredientIds = [];
+      result.forEach((ingredient) => ingredientIds.push(ingredient.ingredientId));
+
+      return models.Ingredients.findAll({
+        where: {
+          id: {
+            [Op.or]: ingredientIds,
+          },
+        },
+      });
+    })
+    .then((result) => {
+      console.log(result);
+      res.status(200).send(result);
+    })
+    .catch((err) => console.error(err));
+});
 
 app.use(express.static(path.join(__dirname, '/../react-client/public')));
 app.use(express.static(path.join(__dirname, '/../react-client/dist')));
