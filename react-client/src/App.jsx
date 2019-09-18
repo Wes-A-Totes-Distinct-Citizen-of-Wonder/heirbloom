@@ -210,8 +210,8 @@ class App extends Component {
   }
 
   addToGroceryList(ingredient) {
-    console.log(ingredient.Name)
-    // return axios.post('/groceryList', (ingredient))
+    console.log(ingredient)
+    axios.post('/api/groceryList', (ingredient))
   }
 
   render() {
