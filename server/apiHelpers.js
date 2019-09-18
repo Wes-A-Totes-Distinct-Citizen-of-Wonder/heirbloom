@@ -40,7 +40,7 @@ const getRecipes = (ingredientsArray) => {
   ingredientsArray.forEach((ingredient, index) => {
     ingredientsStr += ingredient.split(' ').join('%20').toLowerCase();
     if (ingredientsArray.length > 1 && index < ingredientsArray.length - 1) {
-      ingredientsStr += ', ';
+      ingredientsStr += ',';
     }
   });
   return axios.get(`https://www.food2fork.com/api/search?key=${FOOD2FORKKEY}&q=${ingredientsStr}`)
