@@ -25,9 +25,10 @@ const Ingredient = props => {
       .catch(err => console.error(err));
   };
 
-  // const addToCart = (item) => {
-  //   addToGroceryList(item);
-  // }
+  const addIngredient = (ingredientId, userId) => {
+    document.getElementById(ingredientId).disabled = true;
+    addToGroceryList(ingredientId, userId)
+  }
 
   return props.ingredients.map(ingredient => {
     // const { addToGroceryList } = props;
@@ -43,7 +44,7 @@ const Ingredient = props => {
           <CardImg top width="100%" src={ingredient.URL} alt="Card image cap" />
           <CardBody className="bg-light">
             <CardTitle className="card-title">{ingredient.Name}
-              <Button className="float-right ml-auto card-button" onClick={() => addToGroceryList(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
+              <Button id={ingredient.id} className="float-right ml-auto card-button" disabled={false} onClick={() => addIngredient(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
             </CardTitle>
             <CardText>{ingredient.Description}</CardText>
             <hr></hr>
