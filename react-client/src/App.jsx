@@ -41,6 +41,7 @@ class App extends Component {
     this.getFavRecipes = this.getFavRecipes.bind(this);
     this.handleUserUpdate = this.handleUserUpdate.bind(this);
     this.removeFromFavorites = this.removeFromFavorites.bind(this);
+    this.addToGroceryList = this.addToGroceryList.bind(this);
   }
 
   componentDidMount() {
@@ -209,6 +210,11 @@ class App extends Component {
     }
   }
 
+  addToGroceryList(ingredientId, userId) {
+    console.log(ingredientId, userId)
+    axios.post('/api/groceryList', ({ingredientId: ingredientId, id: userId}))
+  }
+
   render() {
     const {
       loading,
@@ -267,6 +273,7 @@ class App extends Component {
             setAuth={this.setAuthentication}
             handleRecipes={this.handleRecipes}
             addToFavorites={this.addToFavorites}
+            addToGroceryList={this.addToGroceryList}
           />
           <PrivateRoute
             path="/market-list"
