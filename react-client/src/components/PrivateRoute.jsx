@@ -22,7 +22,8 @@ const PrivateRoute = props => {
     userLocation,
     localMarkets,
     favRecipes,
-    sessionZipcode
+    sessionZipcode,
+    addToGroceryList,
   } = props;
 
   return (
@@ -59,6 +60,7 @@ const PrivateRoute = props => {
             userLocation={userLocation}
             sessionZipcode={sessionZipcode}
             removeFromFavorites={removeFromFavorites}
+            addToGroceryList={addToGroceryList}
             {...routeProps}
           />
         ) : (
