@@ -13,7 +13,8 @@ const IngredientList = props => {
     userLocation,
     sessionZipcode,
     handleRecipes,
-    addToFavorites
+    addToFavorites,
+    addToGroceryList,
   } = props;
   const { city } = userLocation;
   return (
@@ -32,6 +33,7 @@ const IngredientList = props => {
             ingredients={ingredients}
             handleRecipes={handleRecipes}
             sessionZipcode={sessionZipcode}
+            addToGroceryList={addToGroceryList}
           />
         </Row>
       </Container>
