@@ -34,6 +34,7 @@ const IngredientList = props => {
             handleRecipes={handleRecipes}
             sessionZipcode={sessionZipcode}
             addToGroceryList={addToGroceryList}
+            user={user}
           />
         </Row>
       </Container>

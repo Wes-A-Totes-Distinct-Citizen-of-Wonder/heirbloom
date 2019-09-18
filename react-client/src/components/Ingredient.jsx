@@ -15,7 +15,7 @@ import {
 // This renders an individual ingredient card
 const Ingredient = props => {
   
-  const { addToGroceryList, handleRecipes } = props
+  const { addToGroceryList, handleRecipes, user } = props
 
   const handleRecipesAndRedirect = selectedIngredient => {
     // const { handleRecipes } = props;
@@ -43,7 +43,7 @@ const Ingredient = props => {
           <CardImg top width="100%" src={ingredient.URL} alt="Card image cap" />
           <CardBody className="bg-light">
             <CardTitle className="card-title">{ingredient.Name}
-              <Button className="float-right ml-auto card-button" onClick={() => addToGroceryList(ingredient)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
+              <Button className="float-right ml-auto card-button" onClick={() => addToGroceryList(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
             </CardTitle>
             <CardText>{ingredient.Description}</CardText>
             <hr></hr>
