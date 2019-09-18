@@ -12,7 +12,8 @@ const IngredientList = props => {
     ingredients,
     userLocation,
     sessionZipcode,
-    handleRecipes
+    handleRecipes,
+    addToFavorites
   } = props;
   const { city } = userLocation;
   return (
@@ -20,14 +21,12 @@ const IngredientList = props => {
       <NavBar user={user} />
       <Container fluid>
         <Row className="mt-10 ml-1">
-          <Col>
             <h1 className="headline">
               Here&rsquo;s what&rsquo;s fresh in {city}.
-            <HotList />
             </h1>
             {/* <ZipcodeModal userLocation={userLocation} /> */}
-          </Col>
         </Row>
+            <HotList addToFavorites={addToFavorites} user={user}/>
         <Row className="ml-1">
           <Ingredient
             ingredients={ingredients}
