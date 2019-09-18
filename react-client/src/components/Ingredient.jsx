@@ -39,7 +39,7 @@ const Ingredient = props => {
         xs={{ size: 12 }}
         className="mb-3"
       >
-        <Card id="ingredient-card">
+        <Card id="ingredient-card" key={ingredient.id}>
           <CardImg top width="100%" src={ingredient.URL} alt="Card image cap" />
           <CardBody className="bg-light">
             <CardTitle className="card-title">{ingredient.Name}
