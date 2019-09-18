@@ -227,11 +227,11 @@ app.post('/api/groceryList', (req, res) => {
     .catch((err) => console.error(err));
 });
 
-app.get('/api/groceryList', (req, res) => {
+app.get('/api/groceryList/:id', (req, res) => {
   const { Op } = Sequelize;
   models.groceryList.findAll({
     where: {
-      userId: req.body.id,
+      userId: req.params.id,
     },
   })
     .then((result) => {
