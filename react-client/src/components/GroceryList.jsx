@@ -16,7 +16,8 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Row,
 } from "reactstrap";
 import Axios from "axios";
 
@@ -42,43 +43,36 @@ class GroceryList extends React.Component {
 
     render() {
         return(
-
           <Fragment>
-            <NavBar user={this.props.user} />
-            <div>GROCERY LIST</div>
+              <NavBar user={this.props.user}></NavBar>
+            <Container fluid>
+          <Row className='mt-10 ml-1'>
+              <h3>GROCERY LIST</h3>
+          <Table bordered hover>
+            <thead>
+              <tr>
+              <th>Image</th>
+              <th>Ingredient</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Mark</td>
+                <td>Otto</td>
+              </tr>
+              <tr>
+                <td>Jacob</td>
+                <td>Thornton</td>
+              </tr>
+              <tr>
+                <td>Larry</td>
+                <td>the Bird</td>
+              </tr>
+            </tbody>
+          </Table>
+          </Row>
+            </Container>
           </Fragment>
-
-         
-      //       <Table striped>
-      //   <thead>
-      //     <tr>
-      //       <th>#</th>
-      //       <th>First Name</th>
-      //       <th>Last Name</th>
-      //       <th>Username</th>
-      //     </tr>
-      //   </thead>
-      //   <tbody>
-      //     <tr>
-      //       <th scope="row">1</th>
-      //       <td>Mark</td>
-      //       <td>Otto</td>
-      //       <td>@mdo</td>
-      //     </tr>
-      //     <tr>
-      //       <th scope="row">2</th>
-      //       <td>Jacob</td>
-      //       <td>Thornton</td>
-      //       <td>@fat</td>
-      //     </tr>
-      //     <tr>
-      //       <th scope="row">3</th>
-      //       <td>Larry</td>
-      //       <td>the Bird</td>
-      //       <td>@twitter</td>
-      //     </tr>
-      //   </tbody>
-      // </Table>
            
         );
     }
