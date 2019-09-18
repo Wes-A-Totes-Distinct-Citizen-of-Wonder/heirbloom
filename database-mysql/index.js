@@ -281,6 +281,8 @@ LIMIT 5) AS c
 ON f.id = c.recipeId;
 `;
 
+// const hotQuery = 'select * from users_recipes';
+
 // sync all of the models
 Users.sync();
 favRecipes.sync();

@@ -44,7 +44,7 @@ class FavRecipeItem extends Component {
   }
 
   saveRecipeNotes() {
-    axios.post('/Notes', {note: this.state.newNote})
+    Axios.post('/Notes', {note: this.state.newNote})
       .then((response) =>{
         console.log(response);
       })
