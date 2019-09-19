@@ -88,6 +88,19 @@ class NavBar extends Component {
             )}
             {user && (
               <NavItem>
+                <NavLink onClick={() => history.push("/grocery-list")}>
+                  <i
+                    className="fas fa-shopping-cart fa-2x"
+                    id="grocery-icon"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Time to make some groceries"
+                  ></i>
+                </NavLink>
+              </NavItem>
+            )}
+            {user && (
+              <NavItem>
                 <NavLink onClick={() => history.push("/market-list")}>
                   <i
                     className="fas fa-map-marker-alt fa-2x"

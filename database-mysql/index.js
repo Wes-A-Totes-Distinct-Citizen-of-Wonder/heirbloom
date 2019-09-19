@@ -106,9 +106,6 @@ const UsersRecipes = sequelize.define('users_recipes', {
       model: favRecipes,
       key: 'id',
     },
-    notes: {
-      type: Sequelize.STRING,
-    },
   },
   notes: {
     type: Sequelize.STRING,
@@ -301,7 +298,7 @@ const groceryList = sequelize.define('grocery_list', {
 
 Users.belongsToMany(Ingredients, { through: 'grocery_list' });
 Ingredients.belongsToMany(Users, { through: 'grocery_list' });
-// this query will select the top 5 most favorited recipes among users(it will only select 
+// this query will select the top 5 most favorited recipes among users(it will only select
 // recipes favorited by MORE than one user)
 const hotQuery = `SELECT 
 f.*, c.count
@@ -317,8 +314,6 @@ HAVING count > 1
 LIMIT 5) AS c 
 ON f.id = c.recipeId;
 `;
-
-// const hotQuery = 'select * from users_recipes';
 
 // sync all of the models
 Users.sync();
