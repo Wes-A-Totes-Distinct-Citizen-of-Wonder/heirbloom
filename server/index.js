@@ -216,17 +216,15 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req, res) => {
-  const { Op } = Sequelize;
   models.UsersRecipes.findAll({
     where: {
-      userId: req.query.id,
+      userId: req.query.userId,
+      recipeId: req.query.recipeId,
     },
   })
-    .then((usersInfo) => {
-      console.log(usersInfo);
-      const usersNotes = usersInfo.map(usersRow => usersRow.dataValues.notes);
-      console.log(usersNotes);
-      res.status(201).send(usersNotes);
+    .then((userInfo) => {
+      console.log(userInfo[0].dataValues.notes)
+      res.status(201).send(userInfo[0].dataValues.notes);
     })
     .catch((err) => console.error(err));
 });
