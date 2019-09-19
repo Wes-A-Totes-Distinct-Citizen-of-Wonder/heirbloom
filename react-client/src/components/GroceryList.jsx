@@ -31,18 +31,20 @@ class GroceryList extends React.Component {
         }
         this.toggleBasket= this.toggleBasket.bind(this);
         this.makeGroceries= this.makeGroceries.bind(this);
+        this.clearGrocerisList = this.clearGrocerisList.bind(this);
     }
     componentDidMount() {
       window.scrollTo(0, 0);
       this.makeGroceries();
     }
 
-    toggleBasket () {
-      console.log('Carin bullies me')
+    toggleBasket (groceryName) {
+      console.log('Carin bullies me');
+      document.getElementById(groceryName).disabled = true;
     }
 
-    clearGrocerisLits () {
-      
+    clearGrocerisList (ingredientId) {
+      console.log('success')
     }
 
     makeGroceries() {
@@ -59,9 +61,9 @@ class GroceryList extends React.Component {
     render() {
       const { groceries } =this.state;
       const groceryItem = groceries.map(grocery => (
-              <tr>
+              <tr id={grocery.Name} disabled={false} onClick={() => {this.toggleBasket(grocery.Name)}}>
                 <td>
-                  <img src={grocery.URL} height='40%' crop='fill' onClick={this.toggleBasket}>
+                  <img src={grocery.URL} height='40%' crop='fill'>
                   </img>
                 </td>
                 <td>{grocery.Name}</td>
