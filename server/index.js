@@ -194,7 +194,7 @@ app.post('/api/removeFavRecipe', (req, res) => {
 app.get('/hotList', (req, res) => {
   models.hotList
     .then((hottestList) => {
-      res.status(201).send(hottestList);
+      res.status(201).send(hottestList[0]);
     })
     .catch((err) => {
       console.error(err);
@@ -207,7 +207,7 @@ app.post('/api/notes', (req, res) => {
     { notes: req.body.note },
     { where: { userId: req.body.userId, recipeId: req.body.recipeId } },
   )
-    .then(() => {
+    .then((result) => {
       res.status(201).send('saved your note');
     })
     .catch((err) => {

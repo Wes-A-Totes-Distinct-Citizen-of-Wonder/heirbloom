@@ -14,7 +14,7 @@ import {
     NavLink,
     Input,
 } from "reactstrap";
-import Axios from "axios";
+import axios from "axios";
 import { Transform } from "stream";
 
 // This structures the FavRecipeItem component. props should be one recipe object.
@@ -29,7 +29,7 @@ class HotList extends React.Component {
     }
 
     toggleHot() {
-        return Axios.get('/hotList')
+        return axios.get('/hotList')
             .then(response => {
                 this.setState({
                     recipes: response.data,
@@ -68,7 +68,7 @@ class HotList extends React.Component {
             <div>
                 <Button className="fas fa-fire fa-2x float-right" color="danger" title="Top 5 Recipes" onClick={this.toggleHot}></Button>
                 <Collapse isOpen={this.state.collapse}>
-                    <h2 style={{color: 'rgb(235, 28, 49)', fontFamily: 'Abril Fatface', fontWeight: '900'}}>TOP FIVE HOTEST RECIPES:</h2>
+                    <h2 style={{color: 'rgb(235, 28, 49)', fontFamily: 'Abril Fatface', fontWeight: '900'}}>Top Five Favorite Recipes:</h2>
                     <Row>
                         {hotFive}
                     </Row>

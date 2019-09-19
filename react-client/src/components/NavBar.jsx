@@ -83,7 +83,7 @@ class NavBar extends Component {
                     id="map-icon"
                     data-toggle="tooltip"
                     data-placement="top"
-                    title="Find a market near you."
+                    title="Markets near you"
                   ></i>
                 </NavLink>
               </NavItem>
