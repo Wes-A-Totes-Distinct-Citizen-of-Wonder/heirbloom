@@ -25,6 +25,7 @@ import Axios from "axios";
 class GroceryList extends React.Component {
     constructor(props) {
         super(props)
+        const { user } =this.props;
         this.state = {
           groceries: []
         }
@@ -37,12 +38,11 @@ class GroceryList extends React.Component {
     }
 
     toggleBasket () {
-
+      console.log('Carin bullies me')
     }
 
     makeGroceries() {
-      const { user } = this.props;
-      return Axios.get(`/api/groceryList?ID=${user.id}`)
+      return Axios.get(`/api/groceryList?id=${this.props.user.id}`)
       .then(response => {
         this.setState({
           groceries: response.data
@@ -56,10 +56,13 @@ class GroceryList extends React.Component {
       const { groceries } =this.state;
       const groceryItem = groceries.map(grocery => (
               <tr>
-                <td>{grocery.URL}</td>
+                <td>
+                  <img src={grocery.URL} height='40%' crop='fill' onClick={this.toggleBasket}>
+                  </img>
+                </td>
                 <td>{grocery.Name}</td>
               </tr>
-      ))
+      ));
         return(
           <Fragment>
               <NavBar user={this.props.user}></NavBar>

@@ -222,16 +222,16 @@ app.post('/api/groceryList', (req, res) => {
   })
     .then((result) => {
       console.log(result)
-      res.status(201).send('ingredient added')
+      res.status(201).send('ingredient added');
     })
     .catch((err) => console.error(err));
 });
 
-app.get('/api/groceryList/:id', (req, res) => {
+app.get('/api/groceryList', (req, res) => {
   const { Op } = Sequelize;
   models.groceryList.findAll({
     where: {
-      userId: req.body.id,
+      userId: req.query.id,
     },
   })
     .then((result) => {
