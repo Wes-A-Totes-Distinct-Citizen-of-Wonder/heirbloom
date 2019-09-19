@@ -79,7 +79,7 @@ class GroceryList extends React.Component {
               <NavBar user={this.props.user}></NavBar>
             <Container>
           <Row className='mt-10 ml-1'>
-              <h3>GROCERY LIST</h3><Button ></Button>
+          <Button className="fas float-right fa-shopping-basket mr-3 mb-3 sm-12"></Button><h3>GROCERY LIST</h3>
           <Table bordered hover >
             <thead style={{backgroundColor: '#F7882F', color: 'white'}}>
               <tr>
