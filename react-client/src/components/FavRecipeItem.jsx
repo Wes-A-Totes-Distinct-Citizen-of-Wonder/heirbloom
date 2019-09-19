@@ -25,7 +25,6 @@ class FavRecipeItem extends Component {
     this.state ={ 
       collapse: false,
       notes: '',
-      newNote: '',
     };
     this.toggleNotes = this.toggleNotes.bind(this);
     this.removeFavoritesAndRedirect = this.removeFavoritesAndRedirect.bind(this);
@@ -54,9 +53,9 @@ class FavRecipeItem extends Component {
   }
 
   saveRecipeNotes() {
-    const { newNote, notes} = this.state;
+    const { notes } = this.state;
     
-    return axios.post('api/notes', {note: newNote, recipeId: this.props.favRecipe.id, userId: this.props.user.id })
+    return axios.post('api/notes', {note: notes, recipeId: this.props.favRecipe.id, userId: this.props.user.id })
       .then((response) =>{
         console.log(response, 'the save RecipieNotes response');
       })
@@ -64,7 +63,7 @@ class FavRecipeItem extends Component {
 
   render(){
     const { recipe_name, recipe_url, title, recipe_image, id } = this.props.favRecipe;
-    const {state, notes, newNote} = this.state;
+    const {state, notes } = this.state;
   return (
     <tbody>
       <tr>
@@ -103,7 +102,7 @@ class FavRecipeItem extends Component {
       <tr>
       <Collapse isOpen={this.state.collapse}>
               <td>
-                <Input type='textarea' value={newNote} onChange={e => this.setState({newNote: e.target.value})}></Input>
+                <Input type='textarea' value={notes} onChange={e => this.setState({notes: e.target.value})}></Input>
               </td>
               <td>
                 <Button className='fas fa-utensils icon-food float-right' onClick={this.saveRecipeNotes} data-toggle="tooltip" title="Save Note"></Button> 
