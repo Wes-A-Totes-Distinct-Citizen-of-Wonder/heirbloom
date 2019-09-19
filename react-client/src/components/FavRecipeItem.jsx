@@ -15,7 +15,7 @@ import {
   Container,
   Collapse,
 } from "reactstrap";
-import Axios from "axios";
+import axios from "axios";
 import RecipeNotes from './RecipeNotes.jsx';
 
 // This structures the FavRecipeItem component. props should be one recipe object.
@@ -32,6 +32,12 @@ class FavRecipeItem extends Component {
     this.saveRecipeNotes = this.saveRecipeNotes.bind(this);
   }
   // const { user, removeFromFavorites } = this.props;
+  componentDidMount() {
+    axios.get('/api/notes')
+      .then((result) => {
+        console.log(result)
+      })
+  }
   
   removeFavoritesAndRedirect (selectedRecipe) {
     this.props.removeFromFavorites(selectedRecipe)
@@ -44,8 +50,10 @@ class FavRecipeItem extends Component {
   }
 
   saveRecipeNotes() {
-    // console.log('yobro')
-    return Axios.post('api/notes', {note: this.state.newNote, recipeId: this.props.favRecipe.id, userId: this.props.user.id })
+    const { newNote, notes} = this.state;
+    notes.unshift(newNote);
+    
+    return axios.post('api/notes', {note: notes, recipeId: this.props.favRecipe.id, userId: this.props.user.id })
       .then((response) =>{
         console.log(response, 'the save RecipieNotes response');
       })
