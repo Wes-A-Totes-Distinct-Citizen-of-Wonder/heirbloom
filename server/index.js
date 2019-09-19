@@ -205,7 +205,7 @@ app.get('/hotList', (req, res) => {
 app.post('/api/notes', (req, res) => {
   models.UsersRecipes.update(
     { notes: req.body.note },
-    { returning: true, where: { userId: req.body.userId, recipeId: req.body.recipeId } },
+    { where: { userId: req.body.userId, recipeId: req.body.recipeId } },
   )
     .then(() => {
       res.status(201).send('saved your note');
