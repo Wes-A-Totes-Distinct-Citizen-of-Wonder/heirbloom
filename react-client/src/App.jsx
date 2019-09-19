@@ -46,7 +46,6 @@ class App extends Component {
 
   componentDidMount() {
     this.getUserDetails();
-    axios.get('/api/groceryList/1')
   }
 
   handleUserUpdate(updatedUser) {
