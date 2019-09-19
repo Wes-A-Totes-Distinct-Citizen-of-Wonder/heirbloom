@@ -205,7 +205,7 @@ app.get('/hotList', (req, res) => {
 app.post('/api/notes', (req, res) => {
   models.UsersRecipes.update(
     { notes: req.body.note },
-    { returning: true, where: { userId: req.body.userId, recipeId: req.body.recipeId } },
+    { where: { userId: req.body.userId, recipeId: req.body.recipeId } },
   )
     .then(() => {
       res.status(201).send('saved your note');
@@ -222,7 +222,10 @@ app.get('/api/notes', (req, res) => {
       recipeId: req.query.recipeId,
     },
   })
-    .then((userInfo) => res.status(201).send(userInfo[0].dataValues.notes))
+    .then((userInfo) => {
+      console.log(userInfo[0].dataValues.notes)
+      res.status(201).send(userInfo[0].dataValues.notes);
+    })
     .catch((err) => console.error(err));
 });
 
@@ -262,6 +265,20 @@ app.get('/api/groceryList', (req, res) => {
       res.status(200).send(result);
     })
     .catch((err) => console.error(err));
+});
+
+app.post('/api/removeGroceries', (req, res) => {
+  console.log(req.body, 'remove Groceries');
+  models.groceryList.destroy({
+    where: {
+      userId: req.body.userId,
+      ingredientId: this.props.ingredient.id,
+    },
+  }).then(() => {
+    res.send(201);
+  }).catch((err) => {
+    console.error(err);
+  });
 });
 
 app.use(express.static(path.join(__dirname, '/../react-client/public')));

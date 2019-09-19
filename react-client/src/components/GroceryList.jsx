@@ -28,6 +28,7 @@ class GroceryList extends React.Component {
         const { user } =this.props;
         this.state = {
           groceries: [],
+          clearProduce: [],
         }
         this.toggleBasket= this.toggleBasket.bind(this);
         this.makeGroceries= this.makeGroceries.bind(this);
@@ -38,18 +39,28 @@ class GroceryList extends React.Component {
       this.makeGroceries();
     }
 
-    toggleBasket (groceryName) {
+    toggleBasket (groceryId) {
+      let { clearProduce } = this.state;
       console.log('Carin bullies me');
-      let ele = document.getElementById(groceryName)
+      let ele = document.getElementById(groceryId)
       if(ele.style.backgroundColor === 'white'){
         ele.style.backgroundColor = '#A9A9A9';
+       clearProduce.push(groceryId);
+       this.state.clearProduce = clearProduce;
       }else{
         ele.style.backgroundColor = 'white';
+        let remove = this.state.clearProduce.indexOf(groceryId);
+        clearProduce = this.state.clearProduce.splice(remove, 1);
+        this.state.clearProduce = clearProduce;
       }
     }
 
-    clearGrocerisList (ingredientId) {
-      console.log('success')
+    clearGrocerisList () {
+      console.log('success');
+      return Axios.post('/api/removeGroceries', {userId: this.props.user.id, ingredientIds: this.state.clearProduce})
+        .then((result) =>{
+          console.log(result, 'Ingredients removed from Grocery List')
+        })
     }
 
     makeGroceries() {
@@ -66,7 +77,7 @@ class GroceryList extends React.Component {
     render() {
       const { groceries, backGround } =this.state;
       const groceryItem = groceries.map(grocery => (
-              <tr id={grocery.Name} style={{backgroundColor: 'white'}} onClick={() => {this.toggleBasket(grocery.Name)}}>
+              <tr id={grocery.id} style={{backgroundColor: 'white'}} onClick={() => {this.toggleBasket(grocery.id)}}>
                 <td>
                   <img src={grocery.URL} height='40%' crop='fill'>
                   </img>
@@ -79,7 +90,7 @@ class GroceryList extends React.Component {
               <NavBar user={this.props.user}></NavBar>
             <Container>
           <Row className='mt-10 ml-1'>
-          <Button className="card-button mr-3 mb-3 sm-12"><i className="fas fa-shopping-basket" data-toggle="tooltip" data-placement="top" title="Click to remove already selected produce " ></i></Button><h3>Grocery List</h3>
+          <Button className="card-button mr-3 mb-3 sm-12" onClick={this.clearGrocerisList}><i className="fas fa-shopping-basket" data-toggle="tooltip" data-placement="top" title="Click to remove already selected produce " ></i></Button><h3>Grocery List</h3>
           <Table bordered hover >
             <thead style={{backgroundColor: '#F7882F', color: 'white'}}>
               <tr>

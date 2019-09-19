@@ -24,7 +24,7 @@ class FavRecipeItem extends Component {
     super(props);
     this.state ={ 
       collapse: false,
-      notes: ['fack sata', 'sckpada', 'trashPandas'],
+      notes: '',
       newNote: '',
     };
     this.toggleNotes = this.toggleNotes.bind(this);
@@ -32,14 +32,15 @@ class FavRecipeItem extends Component {
     this.saveRecipeNotes = this.saveRecipeNotes.bind(this);
   }
   // const { user, removeFromFavorites } = this.props;
+
   componentDidMount() {
-    axios.get(`/api/notes?userId=${this.props.user.id}&recipeId=${this.props.favRecipe.id}`)
-      .then((result) => {
-        console.log(result)
-        const { notes } = this.state;
-        notes.unshift(result.data);
+    Axios.get(`/api/notes?userId=${this.props.user.id}&recipeId=${this.props.favRecipe.id}`)
+      .then(usersNotes => {
+        // const { notes } = this.state;
+        // notes.unshift(usersNotes.data);
+        console.log(usersNotes)
         this.setState({
-          notes: notes,
+          notes: usersNotes.data,
         })
       })
   }
@@ -114,7 +115,9 @@ class FavRecipeItem extends Component {
       </tr>
       <tr>
         <h7>Personal Notes</h7>
-        <RecipeNotes notes={notes}/>
+      </tr>
+      <tr>
+      <RecipeNotes notes={notes}/>
       </tr>
     </tbody>
   );

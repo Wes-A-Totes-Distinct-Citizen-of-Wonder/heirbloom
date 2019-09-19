@@ -27,7 +27,7 @@ const FavRecipes = props => {
 
   return (
     <Fragment>
-      <div className="bg-recipe pt-5">
+      <Row className="bg-recipe pt-5">
         <NavBar user={user} className="mb-3" />
         <Container md={{ size: 6, offset: 3 }}>
           <Row className="mt-5 position-relative bg-white recipe-table">
@@ -50,7 +50,7 @@ const FavRecipes = props => {
             </Col>
           </Row>
         </Container>
-      </div>
+      </Row>
     </Fragment>
   );
 };
