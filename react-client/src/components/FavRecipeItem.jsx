@@ -34,7 +34,7 @@ class FavRecipeItem extends Component {
   // const { user, removeFromFavorites } = this.props;
 
   componentDidMount() {
-    Axios.get(`/api/notes?userId=${this.props.user.id}&recipeId=${this.props.favRecipe.id}`)
+    axios.get(`/api/notes?userId=${this.props.user.id}&recipeId=${this.props.favRecipe.id}`)
       .then(usersNotes => {
         // const { notes } = this.state;
         // notes.unshift(usersNotes.data);
@@ -106,7 +106,7 @@ class FavRecipeItem extends Component {
       <tr>
       <Collapse isOpen={this.state.collapse}>
               <td>
-                <Input type='textarea' placeholder="Type your notes for your fav recipe" value={newNote} onChange={e => this.setState({newNote: e.target.value})}></Input>
+                <Input type='textarea' value={newNote} onChange={e => this.setState({newNote: e.target.value})}></Input>
               </td>
               <td>
                 <Button className='fas fa-utensils icon-food float-right' onClick={this.saveRecipeNotes} data-toggle="tooltip" title="Save Note"></Button> 

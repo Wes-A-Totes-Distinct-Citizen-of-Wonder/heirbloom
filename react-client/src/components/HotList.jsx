@@ -14,7 +14,7 @@ import {
     NavLink,
     Input,
 } from "reactstrap";
-import Axios from "axios";
+import axios from "axios";
 import { Transform } from "stream";
 
 // This structures the FavRecipeItem component. props should be one recipe object.
@@ -29,7 +29,7 @@ class HotList extends React.Component {
     }
 
     toggleHot() {
-        return Axios.get('/hotList')
+        return axios.get('/hotList')
             .then(response => {
                 this.setState({
                     recipes: response.data,
