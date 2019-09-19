@@ -28,6 +28,7 @@ class GroceryList extends React.Component {
         const { user } =this.props;
         this.state = {
           groceries: [],
+          clearProduce: [],
         }
         this.toggleBasket= this.toggleBasket.bind(this);
         this.makeGroceries= this.makeGroceries.bind(this);
@@ -43,13 +44,16 @@ class GroceryList extends React.Component {
       let ele = document.getElementById(groceryName)
       if(ele.style.backgroundColor === 'white'){
         ele.style.backgroundColor = '#A9A9A9';
+        this.state.clearProduce.push(groceryName);
       }else{
         ele.style.backgroundColor = 'white';
+        let remove = this.state.clearProduce.indexOf(groceryName);
+        this.state.clearProduce = this.state.clearProduce.splice(remove, 1);
       }
     }
 
     clearGrocerisList (ingredientId) {
-      console.log('success')
+      console.log('success');
     }
 
     makeGroceries() {
@@ -79,7 +83,7 @@ class GroceryList extends React.Component {
               <NavBar user={this.props.user}></NavBar>
             <Container>
           <Row className='mt-10 ml-1'>
-          <Button className="card-button mr-3 mb-3 sm-12"><i className="fas fa-shopping-basket" data-toggle="tooltip" data-placement="top" title="Click to remove already selected produce " ></i></Button><h3>Grocery List</h3>
+          <Button className="card-button mr-3 mb-3 sm-12" onClick={this.clearGrocerisList}><i className="fas fa-shopping-basket" data-toggle="tooltip" data-placement="top" title="Click to remove already selected produce " ></i></Button><h3>Grocery List</h3>
           <Table bordered hover >
             <thead style={{backgroundColor: '#F7882F', color: 'white'}}>
               <tr>
