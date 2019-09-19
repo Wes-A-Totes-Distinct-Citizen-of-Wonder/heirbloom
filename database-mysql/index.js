@@ -106,9 +106,6 @@ const UsersRecipes = sequelize.define('users_recipes', {
       model: favRecipes,
       key: 'id',
     },
-    notes: {
-      type: Sequelize.STRING,
-    },
   },
   notes: {
     type: Sequelize.STRING,
@@ -318,7 +315,7 @@ LIMIT 5) AS c
 ON f.id = c.recipeId;
 `;
 
-// const hotQuery = 'select * from users_recipes';
+
 
 // sync all of the models
 Users.sync();
