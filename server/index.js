@@ -216,8 +216,15 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req, res) => {
-
-})
+  models.UsersRecipes.findAll({
+    where: {
+      userId: req.query.userId,
+      recipeId: req.query.recipeId,
+    },
+  })
+    .then((userInfo) => res.status(201).send(userInfo[0].dataValues.notes))
+    .catch((err) => console.error(err));
+});
 
 app.post('/api/groceryList', (req, res) => {
   models.groceryList.create({
@@ -225,7 +232,7 @@ app.post('/api/groceryList', (req, res) => {
     ingredientId: req.body.ingredientId,
   })
     .then((result) => {
-      console.log(result)
+      console.log(result);
       res.status(201).send('ingredient added');
     })
     .catch((err) => console.error(err));
