@@ -64,13 +64,13 @@ class NavBar extends Component {
             {/* if user props is passed down (meaning a user is logged-in), show this component) */}
             {user && (
               <NavItem>
-                <NavLink onClick={() => history.push("/fav-recipes")}>
+                <NavLink onClick={() => history.push("/grocery-list")}>
                   <i
                     className="fas fa-shopping-cart fa-2x"
-                    id="fav-icon"
+                    id="grocery-icon"
                     data-toggle="tooltip"
                     data-placement="top"
-                    title="Grocery List"
+                    title="Time to make some groceries"
                   ></i>
                 </NavLink>
               </NavItem>

@@ -12,6 +12,7 @@ import FavRecipes from "./components/FavRecipes.jsx";
 import Profile from "./components/Profile.jsx";
 import RecipeList from "./components/RecipeList.jsx";
 import Swal from "sweetalert2";
+import GroceryList from "./components/GroceryList.jsx";
 
 class App extends Component {
   constructor(props) {
@@ -315,6 +316,15 @@ class App extends Component {
             component={RecipeList}
             setAuth={this.setAuthentication}
             addToFavorites={this.addToFavorites}
+          />
+          <PrivateRoute
+          path='/grocery-list'
+          ingredients={ingredients}
+          isAuthenticated={isAuthenticated} 
+          userLocation={userLocation}
+          user={user}
+          component={GroceryList}
+          setAuth={this.setAuthentication}
           />
         </Switch>
       </div>
