@@ -79,7 +79,7 @@ class GroceryList extends React.Component {
               <NavBar user={this.props.user}></NavBar>
             <Container>
           <Row className='mt-10 ml-1'>
-          <Button className="fas float-right fa-shopping-basket mr-3 mb-3 sm-12"></Button><h3>GROCERY LIST</h3>
+          <Button className="card-button mr-3 mb-3 sm-12"><i className="fas fa-shopping-basket" data-toggle="tooltip" data-placement="top" title="Click to remove already selected produce " ></i></Button><h3>Grocery List</h3>
           <Table bordered hover >
             <thead style={{backgroundColor: '#F7882F', color: 'white'}}>
               <tr>
