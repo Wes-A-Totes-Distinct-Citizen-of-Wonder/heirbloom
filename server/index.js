@@ -249,10 +249,13 @@ app.get('/api/groceryList', (req, res) => {
 
 app.post('/api/removeGroceries', (req, res) => {
   console.log(req.body, 'remove Groceries');
+  const { Op } = Sequelize;
   models.groceryList.destroy({
     where: {
       userId: req.body.userId,
-      ingredientId: this.props.ingredient.id,
+      ingredientId: {
+        [Op.or]: req.body.ingredientIds,
+      },
     },
   }).then(() => {
     res.send(201);
