@@ -36,8 +36,6 @@ class FavRecipeItem extends Component {
   componentDidMount() {
     axios.get(`/api/notes?userId=${this.props.user.id}&recipeId=${this.props.favRecipe.id}`)
       .then(usersNotes => {
-        // const { notes } = this.state;
-        // notes.unshift(usersNotes.data);
         console.log(usersNotes)
         this.setState({
           notes: usersNotes.data,
@@ -57,9 +55,8 @@ class FavRecipeItem extends Component {
 
   saveRecipeNotes() {
     const { newNote, notes} = this.state;
-    notes.unshift(newNote);
     
-    return axios.post('api/notes', {note: notes, recipeId: this.props.favRecipe.id, userId: this.props.user.id })
+    return axios.post('api/notes', {note: newNote, recipeId: this.props.favRecipe.id, userId: this.props.user.id })
       .then((response) =>{
         console.log(response, 'the save RecipieNotes response');
       })

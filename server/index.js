@@ -207,7 +207,7 @@ app.post('/api/notes', (req, res) => {
     { notes: req.body.note },
     { where: { userId: req.body.userId, recipeId: req.body.recipeId } },
   )
-    .then(() => {
+    .then((result) => {
       res.status(201).send('saved your note');
     })
     .catch((err) => {
