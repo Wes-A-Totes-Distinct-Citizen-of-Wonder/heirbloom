@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import IngredientList from "./IngredientList.jsx";
 import "../App.css";
 import {
   Container,
@@ -24,6 +25,7 @@ class NavBar extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.handleProfile = this.handleProfile.bind(this);
     this.handleFavRecipes = this.handleFavRecipes.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
 
     this.state = {
       isOpen: false
@@ -51,6 +53,15 @@ class NavBar extends Component {
     this.props.history.push("/fav-recipes");
   }
 
+  handleSearch() { 
+    // alert('DO IT!')
+    this.props.searchSelectedIngredients()
+      // .then(() => props.history.push("/recipe-list"))
+      // .catch(err => console.error(err));
+    // this.props.searchSelecteIngredients();
+    // this.props.history.push("/recipe-list")
+  }
+
   render() {
     const { history, user } = this.props;
     return (
@@ -64,13 +75,13 @@ class NavBar extends Component {
             {/* if user props is passed down (meaning a user is logged-in), show this component) */}
             {user && (
               <NavItem>
-                <NavLink onClick={() => history.push("/fav-recipes")}>
+                <NavLink onClick={this.handleSearch}>
                   <i
-                    className="fas fa-shopping-cart fa-2x"
+                    className="fas fa-search fa-2x"
                     id="fav-icon"
                     data-toggle="tooltip"
                     data-placement="top"
-                    title="Grocery Cart"
+                    title="Search tagged ingredients"
                   ></i>
                 </NavLink>
               </NavItem>
@@ -83,7 +94,7 @@ class NavBar extends Component {
                     id="map-icon"
                     data-toggle="tooltip"
                     data-placement="top"
-                    title="Find a market near you."
+                    title="Find a market near you"
                   ></i>
                 </NavLink>
               </NavItem>
