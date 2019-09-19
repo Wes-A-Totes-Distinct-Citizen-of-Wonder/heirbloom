@@ -245,7 +245,7 @@ app.get('/api/groceryList', (req, res) => {
   const { Op } = Sequelize;
   models.groceryList.findAll({
     where: {
-      userId: req.body.id,
+      userId: req.query.id,
     },
   })
     .then((result) => {
@@ -265,6 +265,20 @@ app.get('/api/groceryList', (req, res) => {
       res.status(200).send(result);
     })
     .catch((err) => console.error(err));
+});
+
+app.post('/api/removeGroceries', (req, res) => {
+  console.log(req.body, 'remove Groceries');
+  models.groceryList.destroy({
+    where: {
+      userId: req.body.userId,
+      ingredientId: this.props.ingredient.id,
+    },
+  }).then(() => {
+    res.send(201);
+  }).catch((err) => {
+    console.error(err);
+  });
 });
 
 app.use(express.static(path.join(__dirname, '/../react-client/public')));

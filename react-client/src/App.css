@@ -213,3 +213,11 @@ a {
   font-size: 18px;
   font-weight: 900
 }
+
+.grocery-button {
+  background-color: #F7882F;
+  color: white;
+  font: Bold 14px Poppins;
+  margin-bottom: 6px;
+  border: none;
+}
