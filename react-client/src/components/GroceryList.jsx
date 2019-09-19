@@ -41,6 +41,10 @@ class GroceryList extends React.Component {
       console.log('Carin bullies me')
     }
 
+    clearGrocerisLits () {
+      
+    }
+
     makeGroceries() {
       return Axios.get(`/api/groceryList?id=${this.props.user.id}`)
       .then(response => {
