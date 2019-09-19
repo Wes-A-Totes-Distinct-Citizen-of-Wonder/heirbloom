@@ -202,7 +202,7 @@ app.get('/hotList', (req, res) => {
 });
 
 // connection for recipe notes
-app.post('/api/Notes', (req, res) => {
+app.post('/api/notes', (req, res) => {
   models.UsersRecipes.update(
     { notes: req.body.note },
     { returning: true, where: { userId: req.body.userId, recipeId: req.body.recipeId } },
@@ -215,14 +215,30 @@ app.post('/api/Notes', (req, res) => {
     });
 });
 
+app.get('/api/notes', (req, res) => {
+  const { Op } = Sequelize;
+  models.UsersRecipes.findAll({
+    where: {
+      userId: req.query.id,
+    },
+  })
+    .then((usersInfo) => {
+      console.log(usersInfo);
+      const usersNotes = usersInfo.map(usersRow => usersRow.dataValues.notes);
+      console.log(usersNotes);
+      res.status(201).send(usersNotes);
+    })
+    .catch((err) => console.error(err));
+});
+
 app.post('/api/groceryList', (req, res) => {
   models.groceryList.create({
     userId: req.body.id,
     ingredientId: req.body.ingredientId,
   })
     .then((result) => {
-      console.log(result)
-      res.status(201).send('ingredient added')
+      console.log(result);
+      res.status(201).send('ingredient added');
     })
     .catch((err) => console.error(err));
 });
