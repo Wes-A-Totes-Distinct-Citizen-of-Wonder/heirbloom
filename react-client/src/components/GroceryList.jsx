@@ -27,7 +27,7 @@ class GroceryList extends React.Component {
         super(props)
         const { user } =this.props;
         this.state = {
-          groceries: []
+          groceries: [],
         }
         this.toggleBasket= this.toggleBasket.bind(this);
         this.makeGroceries= this.makeGroceries.bind(this);
@@ -40,7 +40,12 @@ class GroceryList extends React.Component {
 
     toggleBasket (groceryName) {
       console.log('Carin bullies me');
-      document.getElementById(groceryName).disabled = true;
+      let ele = document.getElementById(groceryName)
+      if(ele.style.backgroundColor === 'white'){
+        ele.style.backgroundColor = '#A9A9A9';
+      }else{
+        ele.style.backgroundColor = 'white';
+      }
     }
 
     clearGrocerisList (ingredientId) {
@@ -59,9 +64,9 @@ class GroceryList extends React.Component {
     //pass ingredientsId, userId, to david on back end
 
     render() {
-      const { groceries } =this.state;
+      const { groceries, backGround } =this.state;
       const groceryItem = groceries.map(grocery => (
-              <tr id={grocery.Name} disabled={false} onClick={() => {this.toggleBasket(grocery.Name)}}>
+              <tr id={grocery.Name} style={{backgroundColor: 'white'}} onClick={() => {this.toggleBasket(grocery.Name)}}>
                 <td>
                   <img src={grocery.URL} height='40%' crop='fill'>
                   </img>
@@ -74,7 +79,7 @@ class GroceryList extends React.Component {
               <NavBar user={this.props.user}></NavBar>
             <Container>
           <Row className='mt-10 ml-1'>
-              <h3>GROCERY LIST</h3>
+              <h3>GROCERY LIST</h3><Button ></Button>
           <Table bordered hover >
             <thead style={{backgroundColor: '#F7882F', color: 'white'}}>
               <tr>

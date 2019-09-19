@@ -315,8 +315,6 @@ LIMIT 5) AS c
 ON f.id = c.recipeId;
 `;
 
-
-
 // sync all of the models
 Users.sync();
 favRecipes.sync();
