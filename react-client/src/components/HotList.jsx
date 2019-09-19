@@ -45,12 +45,13 @@ class HotList extends React.Component {
         const hotFive = recipes.map(recipe => (
             <Col sm='2'>
                 <Card>
-                    <CardBody>
                         <CardImg src={recipe.recipe_image} top width='10%'>
                         </CardImg>
-                        <CardTitle className="card-title">
-                            <a href={recipe.recipe_url} target="_blank">
+                    <CardBody>
+                        <CardTitle>
+                            <a href={recipe.recipe_url} target="_blank"><h5>
                             {recipe.recipe_name}
+                            </h5>
                             </a>
                             <Button
                                 color="white"
