@@ -216,7 +216,7 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req, res) => {
-  
+
 })
 
 app.post('/api/groceryList', (req, res) => {
@@ -231,7 +231,7 @@ app.post('/api/groceryList', (req, res) => {
     .catch((err) => console.error(err));
 });
 
-app.get('/api/groceryList/:id', (req, res) => {
+app.get('/api/groceryList', (req, res) => {
   const { Op } = Sequelize;
   models.groceryList.findAll({
     where: {
