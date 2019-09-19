@@ -298,7 +298,7 @@ const groceryList = sequelize.define('grocery_list', {
 
 Users.belongsToMany(Ingredients, { through: 'grocery_list' });
 Ingredients.belongsToMany(Users, { through: 'grocery_list' });
-// this query will select the top 5 most favorited recipes among users(it will only select 
+// this query will select the top 5 most favorited recipes among users(it will only select
 // recipes favorited by MORE than one user)
 const hotQuery = `SELECT 
 f.*, c.count
