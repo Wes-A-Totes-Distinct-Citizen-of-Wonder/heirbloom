@@ -101,7 +101,9 @@ class FavRecipeItem extends Component {
       </tr>
       <tr>
         <h7>Personal Notes</h7>
-        <RecipeNotes notes={notes}/>
+      </tr>
+      <tr>
+      <RecipeNotes notes={notes}/>
       </tr>
     </tbody>
   );

@@ -39,21 +39,28 @@ class GroceryList extends React.Component {
       this.makeGroceries();
     }
 
-    toggleBasket (groceryName) {
+    toggleBasket (groceryId) {
+      let { clearProduce } = this.state;
       console.log('Carin bullies me');
-      let ele = document.getElementById(groceryName)
+      let ele = document.getElementById(groceryId)
       if(ele.style.backgroundColor === 'white'){
         ele.style.backgroundColor = '#A9A9A9';
-        this.state.clearProduce.push(groceryName);
+       clearProduce.push(groceryId);
+       this.state.clearProduce = clearProduce;
       }else{
         ele.style.backgroundColor = 'white';
-        let remove = this.state.clearProduce.indexOf(groceryName);
-        this.state.clearProduce = this.state.clearProduce.splice(remove, 1);
+        let remove = this.state.clearProduce.indexOf(groceryId);
+        clearProduce = this.state.clearProduce.splice(remove, 1);
+        this.state.clearProduce = clearProduce;
       }
     }
 
-    clearGrocerisList (ingredientId) {
+    clearGrocerisList () {
       console.log('success');
+      return Axios.post('/api/removeGroceries', {userId: this.props.user.id, ingredientIds: this.state.clearProduce})
+        .then((result) =>{
+          console.log(result, 'Ingredients removed from Grocery List')
+        })
     }
 
     makeGroceries() {
@@ -70,7 +77,7 @@ class GroceryList extends React.Component {
     render() {
       const { groceries, backGround } =this.state;
       const groceryItem = groceries.map(grocery => (
-              <tr id={grocery.Name} style={{backgroundColor: 'white'}} onClick={() => {this.toggleBasket(grocery.Name)}}>
+              <tr id={grocery.id} style={{backgroundColor: 'white'}} onClick={() => {this.toggleBasket(grocery.id)}}>
                 <td>
                   <img src={grocery.URL} height='40%' crop='fill'>
                   </img>

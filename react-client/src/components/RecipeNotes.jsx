@@ -3,14 +3,9 @@ import "../App.css";
 
 const RecipeNotes = (props) => {
 
-const { notes } = props;
-const list = notes.map( note => (
-    <li>
-        {note}
-    </li>
-));   
+const { notes } = props;  
     return (
-        <ul>{list}</ul>
+        <td>{notes}</td>
     )
 }
 

@@ -206,13 +206,7 @@ app.post('/api/Notes', (req, res) => {
   models.UsersRecipes.update(
     { notes: req.body.note },
     { returning: true, where: { userId: req.body.userId, recipeId: req.body.recipeId } },
-  )
-    .then(() => {
-      res.status(201).send('saved your note');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  );
 });
 
 app.post('/api/groceryList', (req, res) => {
@@ -221,7 +215,7 @@ app.post('/api/groceryList', (req, res) => {
     ingredientId: req.body.ingredientId,
   })
     .then((result) => {
-      console.log(result)
+      console.log(result);
       res.status(201).send('ingredient added');
     })
     .catch((err) => console.error(err));
@@ -251,6 +245,20 @@ app.get('/api/groceryList', (req, res) => {
       res.status(200).send(result);
     })
     .catch((err) => console.error(err));
+});
+
+app.post('/api/removeGroceries', (req, res) => {
+  console.log(req.body, 'remove Groceries');
+  models.groceryList.destroy({
+    where: {
+      userId: req.body.userId,
+      ingredientId: this.props.ingredient.id,
+    },
+  }).then(() => {
+    res.send(201);
+  }).catch((err) => {
+    console.error(err);
+  });
 });
 
 app.use(express.static(path.join(__dirname, '/../react-client/public')));
