@@ -56,6 +56,9 @@ class NavBar extends Component {
     return (
       <div className="fixed-top container" color="#F7882F">
         <Navbar light expand="xs">
+          {/* <audio> //ausio file??
+            <source src='Beastie Boys - Fight For Your Right To Party (1).mp3' type="audio/mpeg"/>
+          </audio> */}
           <NavbarBrand href="/" id="logo" className="pl-2">
             Heir<span id="bloom">bloom</span>
           </NavbarBrand>
