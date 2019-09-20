@@ -100,22 +100,20 @@ class FavRecipeItem extends Component {
           ></Button>
         </td>
       </tr>
-      <tr>
+      {/* <tr> */}
       <Collapse isOpen={this.state.collapse}>
-              <td>
-                <Input type='textarea' value={notes} onChange={e => this.setState({notes: e.target.value})}></Input>
-              </td>
-              <td>
-                <Button className='fas fa-utensils icon-food float-right' onClick={this.saveRecipeNotes} data-toggle="tooltip" title="Save Note"></Button> 
-              </td>
+        <Row>
+          <Col sm='10'>
+            <Input type='textarea' placeholder="lg" bsSize="lg" value={notes} onChange={e => this.setState({notes: e.target.value})} />
+          </Col>
+          <Col sm='2'>
+          <td>
+            <Button className='card-button float-right' onClick={this.saveRecipeNotes} data-toggle="tooltip" title="Save Note"><i className='fas fa-utensils icon-food ml-auto'>  </i> save</Button> 
+          </td>
+          </Col>
+        </Row>
       </Collapse>
-      </tr>
-      <tr>
-        <h7>Personal Notes</h7>
-      </tr>
-      <tr>
-      <RecipeNotes notes={notes}/>
-      </tr>
+      {/* </tr> */}
     </tbody>
   );
   };
