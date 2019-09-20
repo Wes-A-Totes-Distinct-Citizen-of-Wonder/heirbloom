@@ -249,6 +249,9 @@ app.get('/api/groceryList', (req, res) => {
     },
   })
     .then((result) => {
+      if (result.length === 0) {
+        throw new Error('No items in DB');
+      }
       const ingredientIds = [];
       result.forEach((ingredient) => ingredientIds.push(ingredient.ingredientId));
 
@@ -264,15 +267,24 @@ app.get('/api/groceryList', (req, res) => {
       console.log(result);
       res.status(200).send(result);
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      if (err === 'No items in DB') {
+        res.status(204).send('No items in DB');
+      } else {
+        console.error(err);
+      }
+    });
 });
 
 app.post('/api/removeGroceries', (req, res) => {
   console.log(req.body, 'remove Groceries');
+  const { Op } = Sequelize;
   models.groceryList.destroy({
     where: {
       userId: req.body.userId,
-      ingredientId: this.props.ingredient.id,
+      ingredientId: {
+        [Op.or]: req.body.ingredientIds,
+      },
     },
   }).then(() => {
     res.send(201);
