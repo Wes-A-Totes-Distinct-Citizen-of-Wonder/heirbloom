@@ -33,6 +33,7 @@ class GroceryList extends React.Component {
         this.toggleBasket= this.toggleBasket.bind(this);
         this.makeGroceries= this.makeGroceries.bind(this);
         this.clearGrocerisList = this.clearGrocerisList.bind(this);
+        this.conditionalRender = this.conditionalRender.bind(this);
     }
     componentDidMount() {
       window.scrollTo(0, 0);
@@ -59,7 +60,7 @@ class GroceryList extends React.Component {
       return axios.post('/api/removeGroceries', {userId: this.props.user.id, ingredientIds: this.state.clearProduce})
         .then((result) =>{
           console.log(result, 'Ingredients removed from Grocery List')
-          this.makeGroceries()
+          window.location.reload();
         })
     }
 
@@ -72,25 +73,34 @@ class GroceryList extends React.Component {
       })
     }
 
+    conditionalRender() {
+      const { groceries } = this.state;
+      if(groceries.length === 0){
+        return <h3>There is no Produce in your list</h3>
+      } else {
+      const groceryItem = groceries.map(grocery => (
+        <tr id={grocery.id} style={{backgroundColor: 'white'}} onClick={() => {this.toggleBasket(grocery.id)}}>
+          <td>
+            <img src={grocery.URL} height='40%' crop='fill'>
+            </img>
+          </td>
+          <td>{grocery.Name}</td>
+        </tr>
+       ));
+       return groceryItem;  
+      }
+    }
+
     //pass ingredientsId, userId, to david on back end
 
     render() {
       const { groceries, backGround } =this.state;
-      const groceryItem = groceries.map(grocery => (
-              <tr id={grocery.id} style={{backgroundColor: 'white'}} onClick={() => {this.toggleBasket(grocery.id)}}>
-                <td>
-                  <img src={grocery.URL} height='40%' crop='fill'>
-                  </img>
-                </td>
-                <td>{grocery.Name}</td>
-              </tr>
-      ));
         return(
           <Fragment>
               <NavBar user={this.props.user}></NavBar>
             <Container>
           <Row className='mt-10 ml-1'>
-          <Button className="card-button mr-3 mb-3 sm-12" onClick={() => this.clearGrocerisList()}><i className="fas fa-shopping-basket" data-toggle="tooltip" data-placement="top" title="Click to remove already selected produce " ></i></Button><h3>Grocery List</h3>
+          <Button href='#' className="card-button mr-3 mb-3 sm-12" onClick={() => this.clearGrocerisList()}><i className="fas fa-shopping-basket" data-toggle="tooltip" data-placement="top" title="Click to remove already selected produce " ></i></Button><h3>Grocery List</h3>
           <Table bordered hover >
             <thead style={{backgroundColor: '#F7882F', color: 'white'}}>
               <tr>
@@ -99,7 +109,7 @@ class GroceryList extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {groceryItem}
+              {this.conditionalRender()}
             </tbody>
           </Table>
           </Row>
