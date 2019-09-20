@@ -251,7 +251,9 @@ app.get('/api/groceryList', (req, res) => {
     .then((result) => {
       const ingredientIds = [];
       result.forEach((ingredient) => ingredientIds.push(ingredient.ingredientId));
-
+      if (ingredientIds.length) {
+        throw new Error('empty');
+      }
       return models.Ingredients.findAll({
         where: {
           id: {
@@ -264,7 +266,9 @@ app.get('/api/groceryList', (req, res) => {
       console.log(result);
       res.status(200).send(result);
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.error(err);
+    });
 });
 
 app.post('/api/removeGroceries', (req, res) => {
