@@ -26,7 +26,7 @@ const Ingredient = props => {
   };
 
   const addIngredient = (ingredientId, userId) => {
-    document.getElementById(ingredientId).disabled = true;
+    document.getElementById(`${ingredientId}button`).disabled = true;
     addToGroceryList(ingredientId, userId)
   }
 
@@ -54,11 +54,11 @@ const Ingredient = props => {
         xs={{ size: 12 }}
         className="mb-3"
       >
-        <Card id={ingredient.id} key={ingredient.id} onClick={() => {imgSelect(ingredient)}}>
-          <CardImg top width="100%" src={ingredient.URL} alt="Card image cap" />
+        <Card id={ingredient.id} key={ingredient.id} >
+          <CardImg className='card-img' top width="100%" src={ingredient.URL} alt="Card image cap" onClick={() => {imgSelect(ingredient)}}/>
           <CardBody className="bg-light">
             <CardTitle className="card-title">{ingredient.Name}
-              <Button id={ingredient.id} className="float-right ml-auto card-button" disabled={false} onClick={() => addIngredient(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
+              <Button id={ingredient.id + 'button'} className="float-right ml-auto card-button" disabled={false} onClick={() => addIngredient(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
             </CardTitle>
             <CardText>{ingredient.Description}</CardText>
             <hr></hr>
