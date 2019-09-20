@@ -15,7 +15,7 @@ import {
   Container,
   Collapse,
 } from "reactstrap";
-import Axios from "axios";
+import axios from "axios";
 import RecipeNotes from './RecipeNotes.jsx';
 
 // This structures the FavRecipeItem component. props should be one recipe object.
@@ -24,14 +24,23 @@ class FavRecipeItem extends Component {
     super(props);
     this.state ={ 
       collapse: false,
-      notes: ['fack sata', 'sckpada', 'trashPandas'],
-      newNote: '',
+      notes: '',
     };
     this.toggleNotes = this.toggleNotes.bind(this);
     this.removeFavoritesAndRedirect = this.removeFavoritesAndRedirect.bind(this);
     this.saveRecipeNotes = this.saveRecipeNotes.bind(this);
   }
   // const { user, removeFromFavorites } = this.props;
+
+  componentDidMount() {
+    axios.get(`/api/notes?userId=${this.props.user.id}&recipeId=${this.props.favRecipe.id}`)
+      .then(usersNotes => {
+        console.log(usersNotes)
+        this.setState({
+          notes: usersNotes.data,
+        })
+      })
+  }
   
   removeFavoritesAndRedirect (selectedRecipe) {
     this.props.removeFromFavorites(selectedRecipe)
@@ -44,8 +53,9 @@ class FavRecipeItem extends Component {
   }
 
   saveRecipeNotes() {
-    // console.log('yobro')
-    return Axios.post('api/notes', {note: this.state.newNote, recipeId: this.props.favRecipe.id, userId: this.props.user.id })
+    const { notes } = this.state;
+    
+    return axios.post('api/notes', {note: notes, recipeId: this.props.favRecipe.id, userId: this.props.user.id })
       .then((response) =>{
         console.log(response, 'the save RecipieNotes response');
       })
@@ -53,7 +63,7 @@ class FavRecipeItem extends Component {
 
   render(){
     const { recipe_name, recipe_url, title, recipe_image, id } = this.props.favRecipe;
-    const {state, notes, newNote} = this.state;
+    const {state, notes } = this.state;
   return (
     <tbody>
       <tr>
@@ -92,10 +102,10 @@ class FavRecipeItem extends Component {
       <tr>
       <Collapse isOpen={this.state.collapse}>
               <td>
-                <Input type='textarea' placeholder="Type your notes for your fav recipe" value={newNote} onChange={e => this.setState({newNote: e.target.value})}></Input>
+                <Input type='textarea' value={notes} onChange={e => this.setState({notes: e.target.value})}></Input>
               </td>
               <td>
-                <Button className='fas fa-utensils icon-food float-right' onClick={this.saveRecipeNotes}></Button> 
+                <Button className='fas fa-utensils icon-food float-right' onClick={this.saveRecipeNotes} data-toggle="tooltip" title="Save Note"></Button> 
               </td>
       </Collapse>
       </tr>

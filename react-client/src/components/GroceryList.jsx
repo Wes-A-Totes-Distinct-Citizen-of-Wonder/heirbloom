@@ -19,7 +19,7 @@ import {
   DropdownItem,
   Row,
 } from "reactstrap";
-import Axios from "axios";
+import axios from "axios";
 
 // This structures the FavRecipeItem component. props should be one recipe object.
 class GroceryList extends React.Component {
@@ -56,7 +56,7 @@ class GroceryList extends React.Component {
 
     clearGrocerisList () {
       console.log('success');
-      return Axios.post('/api/removeGroceries', {userId: this.props.user.id, ingredientIds: this.state.clearProduce})
+      return axios.post('/api/removeGroceries', {userId: this.props.user.id, ingredientIds: this.state.clearProduce})
         .then((result) =>{
           console.log(result, 'Ingredients removed from Grocery List')
           this.makeGroceries()
@@ -64,7 +64,7 @@ class GroceryList extends React.Component {
     }
 
     makeGroceries() {
-      return Axios.get(`/api/groceryList?id=${this.props.user.id}`)
+      return axios.get(`/api/groceryList?id=${this.props.user.id}`)
       .then(response => {
         this.setState({
           groceries: response.data

@@ -194,7 +194,7 @@ app.post('/api/removeFavRecipe', (req, res) => {
 app.get('/hotList', (req, res) => {
   models.hotList
     .then((hottestList) => {
-      res.status(201).send(hottestList);
+      res.status(201).send(hottestList[0]);
     })
     .catch((err) => {
       console.error(err);
@@ -202,11 +202,31 @@ app.get('/hotList', (req, res) => {
 });
 
 // connection for recipe notes
-app.post('/api/Notes', (req, res) => {
+app.post('/api/notes', (req, res) => {
   models.UsersRecipes.update(
     { notes: req.body.note },
-    { returning: true, where: { userId: req.body.userId, recipeId: req.body.recipeId } },
-  );
+    { where: { userId: req.body.userId, recipeId: req.body.recipeId } },
+  )
+    .then((result) => {
+      res.status(201).send('saved your note');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get('/api/notes', (req, res) => {
+  models.UsersRecipes.findAll({
+    where: {
+      userId: req.query.userId,
+      recipeId: req.query.recipeId,
+    },
+  })
+    .then((userInfo) => {
+      console.log(userInfo[0].dataValues.notes)
+      res.status(201).send(userInfo[0].dataValues.notes);
+    })
+    .catch((err) => console.error(err));
 });
 
 app.post('/api/groceryList', (req, res) => {
