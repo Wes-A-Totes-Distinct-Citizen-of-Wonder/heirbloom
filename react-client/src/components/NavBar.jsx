@@ -78,10 +78,10 @@ class NavBar extends Component {
                 <NavLink onClick={this.handleSearch}>
                   <i
                     className="fas fa-search fa-2x"
-                    id="fav-icon"
+                    id="search-icon"
                     data-toggle="tooltip"
                     data-placement="top"
-                    title="Search tagged ingredients"
+                    title="Search selected ingredients"
                   ></i>
                 </NavLink>
               </NavItem>
