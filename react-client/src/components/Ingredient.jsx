@@ -41,7 +41,7 @@ const Ingredient = props => {
         className="mb-3"
       >
         <Card id="ingredient-card" key={ingredient.id}>
-          <CardImg top width="100%" src={ingredient.URL} alt="Card image cap" />
+          <CardImg style={{cursor:'pointer'}} top width="100%" src={ingredient.URL} alt="Card image cap" />
           <CardBody className="bg-light">
             <CardTitle className="card-title">{ingredient.Name}
               <Button id={ingredient.id + 'button'} className="float-right ml-auto card-button" disabled={false} onClick={() => addIngredient(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>

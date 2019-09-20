@@ -67,7 +67,7 @@ class NavBar extends Component {
             {/* if user props is passed down (meaning a user is logged-in), show this component) */}
             {user && (
               <NavItem>
-                <NavLink onClick={() => history.push("/grocery-list")}>
+                <NavLink style={{cursor:'pointer'}} onClick={() => history.push("/grocery-list")}>
                   <i
                     className="fas fa-shopping-cart fa-2x"
                     id="grocery-icon"
@@ -80,7 +80,7 @@ class NavBar extends Component {
             )}
             {user && (
               <NavItem>
-                <NavLink onClick={() => history.push("/market-list")}>
+                <NavLink style={{cursor:'pointer'}} onClick={() => history.push("/market-list")}>
                   <i
                     className="fas fa-map-marker-alt fa-2x"
                     id="map-icon"
@@ -93,7 +93,7 @@ class NavBar extends Component {
             )}
             {user && (
               <NavItem>
-                <NavLink onClick={() => history.push("/fav-recipes")}>
+                <NavLink style={{cursor:'pointer'}} onClick={() => history.push("/fav-recipes")}>
                   <i
                     className="far fa-heart fa-2x"
                     id="fav-icon"
