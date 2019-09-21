@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const Sequelize = require('sequelize');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
@@ -82,7 +83,6 @@ app.post('/api/localIngredients', (req, res) => {
           const {
             region,
           } = stateObj[0];
-
           function getMonthWord() {
             const dt = new Date();
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -191,6 +191,107 @@ app.post('/api/removeFavRecipe', (req, res) => {
   });
 });
 
+app.get('/hotList', (req, res) => {
+  models.hotList
+    .then((hottestList) => {
+      res.status(201).send(hottestList[0]);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
+// connection for recipe notes
+app.post('/api/notes', (req, res) => {
+  models.UsersRecipes.update(
+    { notes: req.body.note },
+    { where: { userId: req.body.userId, recipeId: req.body.recipeId } },
+  )
+    .then((result) => {
+      res.status(201).send('saved your note');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+app.get('/api/notes', (req, res) => {
+  models.UsersRecipes.findAll({
+    where: {
+      userId: req.query.userId,
+      recipeId: req.query.recipeId,
+    },
+  })
+    .then((userInfo) => {
+      console.log(userInfo[0].dataValues.notes)
+      res.status(201).send(userInfo[0].dataValues.notes);
+    })
+    .catch((err) => console.error(err));
+});
+
+app.post('/api/groceryList', (req, res) => {
+  models.groceryList.create({
+    userId: req.body.id,
+    ingredientId: req.body.ingredientId,
+  })
+    .then((result) => {
+      console.log(result);
+      res.status(201).send('ingredient added');
+    })
+    .catch((err) => console.error(err));
+});
+
+app.get('/api/groceryList', (req, res) => {
+  const { Op } = Sequelize;
+  models.groceryList.findAll({
+    where: {
+      userId: req.query.id,
+    },
+  })
+    .then((result) => {
+      if (result.length === 0) {
+        throw new Error('No items in DB');
+      }
+      const ingredientIds = [];
+      result.forEach((ingredient) => ingredientIds.push(ingredient.ingredientId));
+
+      return models.Ingredients.findAll({
+        where: {
+          id: {
+            [Op.or]: ingredientIds,
+          },
+        },
+      });
+    })
+    .then((result) => {
+      console.log(result);
+      res.status(200).send(result);
+    })
+    .catch((err) => {
+      if (err === 'No items in DB') {
+        res.status(204).send('No items in DB');
+      } else {
+        console.error(err);
+      }
+    });
+});
+
+app.post('/api/removeGroceries', (req, res) => {
+  console.log(req.body, 'remove Groceries');
+  const { Op } = Sequelize;
+  models.groceryList.destroy({
+    where: {
+      userId: req.body.userId,
+      ingredientId: {
+        [Op.or]: req.body.ingredientIds,
+      },
+    },
+  }).then(() => {
+    res.send(201);
+  }).catch((err) => {
+    console.error(err);
+  });
+});
 
 app.use(express.static(path.join(__dirname, '/../react-client/public')));
 app.use(express.static(path.join(__dirname, '/../react-client/dist')));

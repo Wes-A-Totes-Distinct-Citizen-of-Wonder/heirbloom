@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import RecipeListItem from "./RecipeListItem.jsx";
-import { Col, Row, Container } from "reactstrap";
+import { Col, Row, Container, CardColumns } from "reactstrap";
 import NavBar from "./NavBar.jsx";
 
 // renders all of our recipes from the Food2Fork API
@@ -45,12 +45,14 @@ class RecipeList extends Component {
               </Col>
             </Row>
             <Row className="ml-1">
+              <CardColumns>
               <RecipeListItem
                 recipes={recipes}
                 addToFavorites={addToFavorites}
                 user={user}
                 recipe_url={recipes.source_url}
               />
+              </CardColumns>
             </Row>
           </Container>
         </Fragment>

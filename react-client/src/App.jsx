@@ -12,6 +12,7 @@ import FavRecipes from "./components/FavRecipes.jsx";
 import Profile from "./components/Profile.jsx";
 import RecipeList from "./components/RecipeList.jsx";
 import Swal from "sweetalert2";
+import GroceryList from "./components/GroceryList.jsx";
 
 class App extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class App extends Component {
     this.getFavRecipes = this.getFavRecipes.bind(this);
     this.handleUserUpdate = this.handleUserUpdate.bind(this);
     this.removeFromFavorites = this.removeFromFavorites.bind(this);
+    this.addToGroceryList = this.addToGroceryList.bind(this);
   }
 
   componentDidMount() {
@@ -148,7 +150,6 @@ class App extends Component {
 
   // request to server to get recipes using a selectedIngredient and then populate the recipes array in App's state
   handleRecipes(selectedIngredient) {
-    debugger;
     return axios
       .post(`/api/recipes`, selectedIngredient)
       .then(response => {
@@ -209,6 +210,15 @@ class App extends Component {
     }
   }
 
+  addToGroceryList(ingredientId, userId) {
+    console.log(ingredientId, userId)
+    axios.post('/api/groceryList', ({ingredientId: ingredientId, id: userId}))
+  }
+
+  searchSelectedIngredients() {
+    alert('this works!!!!')
+  }
+
   render() {
     const {
       loading,
@@ -266,6 +276,9 @@ class App extends Component {
             component={IngredientList}
             setAuth={this.setAuthentication}
             handleRecipes={this.handleRecipes}
+            addToFavorites={this.addToFavorites}
+            addToGroceryList={this.addToGroceryList}
+            searchSelectedIngredients={this.searchSelectedIngredients}
           />
           <PrivateRoute
             path="/market-list"
@@ -307,6 +320,16 @@ class App extends Component {
             component={RecipeList}
             setAuth={this.setAuthentication}
             addToFavorites={this.addToFavorites}
+            searchSelectedIngredients={this.searchSelectedIngredients}
+          />
+          <PrivateRoute
+          path='/grocery-list'
+          ingredients={ingredients}
+          isAuthenticated={isAuthenticated} 
+          userLocation={userLocation}
+          user={user}
+          component={GroceryList}
+          setAuth={this.setAuthentication}
           />
         </Switch>
       </div>
