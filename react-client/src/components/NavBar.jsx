@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import IngredientList from "./IngredientList.jsx";
 import "../App.css";
 import {
   Container,
@@ -24,6 +25,7 @@ class NavBar extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.handleProfile = this.handleProfile.bind(this);
     this.handleFavRecipes = this.handleFavRecipes.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
 
     this.state = {
       isOpen: false
@@ -51,6 +53,15 @@ class NavBar extends Component {
     this.props.history.push("/fav-recipes");
   }
 
+  handleSearch() { 
+    // alert('DO IT!')
+    this.props.searchSelectedIngredients()
+      // .then(() => props.history.push("/recipe-list"))
+      // .catch(err => console.error(err));
+    // this.props.searchSelecteIngredients();
+    // this.props.history.push("/recipe-list")
+  }
+
   render() {
     const { history, user } = this.props;
     return (
@@ -62,6 +73,19 @@ class NavBar extends Component {
           <NavbarToggler onClick={this.toggle} />
           <Nav className="ml-auto" navbar>
             {/* if user props is passed down (meaning a user is logged-in), show this component) */}
+            {user && (
+              <NavItem>
+                <NavLink onClick={this.handleSearch}>
+                  <i
+                    className="fas fa-search fa-2x"
+                    id="search-icon"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Search selected ingredients"
+                  ></i>
+                </NavLink>
+              </NavItem>
+            )}
             {user && (
               <NavItem>
                 <NavLink onClick={() => history.push("/grocery-list")}>
