@@ -64,7 +64,7 @@ class NavBar extends Component {
   }
 
   handleGroceryList() {
-    this.props.makeGroceries();
+    // this.props.makeGroceries();
     this.props.history.push("/grocery-list");
   }
 

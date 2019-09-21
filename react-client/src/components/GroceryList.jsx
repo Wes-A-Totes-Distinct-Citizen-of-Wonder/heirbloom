@@ -67,7 +67,7 @@ class GroceryList extends React.Component {
     }
 
     makeGroceries() {
-      return axios.get(`/api/groceryList?id=${this.props.user.id}`)
+      axios.get(`/api/groceryList?id=${this.props.user.id}`)
       .then(response => {
         this.setState({
           groceries: response.data
@@ -82,9 +82,9 @@ class GroceryList extends React.Component {
         return <tr><th>There is no produce in your list</th></tr>
       } else {
       const groceryItem = groceries.map(grocery => (
-        <tr id={grocery.id} style={{backgroundColor: 'white', cursor: 'pointer'}} onClick={() => {this.toggleBasket(grocery.id)}}>
+        <tr key={Math.random()}id={grocery.id} style={{backgroundColor: 'white', cursor: 'pointer'}} onClick={() => {this.toggleBasket(grocery.id)}}>
           <td>
-            <img src={grocery.URL} height='40%' crop='fill'>
+            <img src={grocery.URL} height='40%' crop='fill' alt=''>
             </img>
           </td>
           <td>{grocery.Name}</td>

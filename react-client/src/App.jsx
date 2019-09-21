@@ -210,7 +210,7 @@ class App extends Component {
     }
   }
 
-  addToGroceryList(ingredientId, userId) {
+   (ingredientId, userId) {
     axios.post('/api/groceryList', ({ingredientId: ingredientId, id: userId}))
       .then((result) => {
         console.log(result);
@@ -320,7 +320,7 @@ class App extends Component {
             addToFavorites={this.addToFavorites}
           />
           <PrivateRoute
-          path='/grocery-list'
+          path="/grocery-list"
           ingredients={ingredients}
           isAuthenticated={isAuthenticated} 
           userLocation={userLocation}
