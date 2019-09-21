@@ -11,6 +11,7 @@ import {
   Input,
   Button
 } from "reactstrap";
+import Swal from "sweetalert2";
 
 // This renders an individual ingredient card
 const Ingredient = props => {
@@ -40,7 +41,7 @@ const Ingredient = props => {
       selected.borderColor = 'rgb(224, 109, 31)';
       selectIngredient(ingredient.Name);
     } else {
-      alert('You already have 3 items selected, please remove one if you wish to add it')
+      Swal.fire({text:'You already have 3 items selected, please remove one if you wish to add it', type: error})
     }
   }
 
