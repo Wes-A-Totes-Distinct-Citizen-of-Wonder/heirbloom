@@ -41,7 +41,7 @@ const Ingredient = props => {
       removeIngredient(ingredient.Name);
     } else if (selectedIngredients.length < 3){
       selected.borderWidth = '4px';
-      selected.borderColor = 'rgb(224, 109, 31)';
+      selected.borderColor = 'rgb(225, 109, 31)';
       selectIngredient(ingredient.Name);
     } else {
       alert('You already have 3 items selected, please remove one if you wish to add it')
@@ -75,7 +75,7 @@ const Ingredient = props => {
         xs={{ size: 12 }}
         className="mb-3"
       >
-        <Card className='card-pointer' id={ingredient.id} key={ingredient.id} >
+        <Card className='card-pointer' id={ingredient.id}>
           <CardImg className='card-img' top width="100%" src={ingredient.URL} style={{cursor: 'pointer'}} alt="Card image cap" onClick={() => {imgSelect(ingredient)}}/>
           <CardBody className="bg-light">
             <CardTitle className="card-title">{ingredient.Name}

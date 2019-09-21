@@ -15,7 +15,6 @@ class IngredientList extends React.Component {
     this.selectIngredient= this.selectIngredient.bind(this);
     this.removeIngredient= this.removeIngredient.bind(this);
     this.searchSelectedIngredients = this.searchSelectedIngredients.bind(this);
-    this.rando = this.rando.bind(this);
   }
 
   selectIngredient(ingredient) {
@@ -47,9 +46,6 @@ class IngredientList extends React.Component {
       .catch(err => console.error(err));
   }
 
-  rando() {
-    return String(Math.random());
-  }
   render() {
   const {
     user,

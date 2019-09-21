@@ -218,10 +218,6 @@ class App extends Component {
       })
   }
 
-  searchSelectedIngredients() {
-    alert('this works!!!!')
-  }
-
   render() {
     const {
       loading,
@@ -281,7 +277,6 @@ class App extends Component {
             handleRecipes={this.handleRecipes}
             addToFavorites={this.addToFavorites}
             addToGroceryList={this.addToGroceryList}
-            searchSelectedIngredients={this.searchSelectedIngredients}
           />
           <PrivateRoute
             path="/market-list"
@@ -323,7 +318,6 @@ class App extends Component {
             component={RecipeList}
             setAuth={this.setAuthentication}
             addToFavorites={this.addToFavorites}
-            searchSelectedIngredients={this.searchSelectedIngredients}
           />
           <PrivateRoute
           path='/grocery-list'
