@@ -11,6 +11,7 @@ import {
   Input,
   Button
 } from "reactstrap";
+import Swal from "sweetalert2";
 
 // This renders an individual ingredient card
 const Ingredient = props => {
@@ -27,6 +28,7 @@ const Ingredient = props => {
 
   const addIngredient = (ingredientId, userId) => {
     document.getElementById(`${ingredientId}button`).disabled = true;
+    Swal.fire({text: 'Produce added to grocery List', type: 'success', confirmButtonColor: '#F7882F' })
     addToGroceryList(ingredientId, userId)
   }
 
@@ -40,7 +42,7 @@ const Ingredient = props => {
       selected.borderColor = 'rgb(224, 109, 31)';
       selectIngredient(ingredient.Name);
     } else {
-      alert('You already have 3 items selected, please remove one if you wish to add it')
+      Swal.fire({text:'You already have 3 items selected, please remove one if you wish to add it', type: error})
     }
   }
 

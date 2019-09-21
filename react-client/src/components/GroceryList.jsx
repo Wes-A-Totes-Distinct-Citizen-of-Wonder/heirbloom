@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { withRouter } from "react-router-dom";
 import NavBar from "./NavBar.jsx";
+import Swal from "sweetalert2";
 import "../App.css";
 import {
   Button,
@@ -59,10 +60,15 @@ class GroceryList extends React.Component {
       console.log('success');
       return axios.post('/api/removeGroceries', {userId: this.props.user.id, ingredientIds: this.state.clearProduce})
         .then((result) =>{
-          console.log(result, 'Ingredients removed from Grocery List')
-          window.location.reload();
+          Swal.fire({
+            text: "Groceries have been deleted",
+            type: "success",
+            confirmButtonColor: '#F7882F'
+        }).then(function() {
+            window.location = "/grocery-list";
+        });
         })
-    }
+    } 
 
     makeGroceries() {
       return axios.get(`/api/groceryList?id=${this.props.user.id}`)
