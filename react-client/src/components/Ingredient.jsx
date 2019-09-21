@@ -15,7 +15,7 @@ import {
 // This renders an individual ingredient card
 const Ingredient = props => {
   
-  const { addToGroceryList, handleRecipes, user } = props
+  const { addToGroceryList, handleRecipes, user, selectedIngredients, selectIngredient, removeIngredient } = props
 
   const handleRecipesAndRedirect = selectedIngredient => {
     // const { handleRecipes } = props;
@@ -30,6 +30,20 @@ const Ingredient = props => {
     addToGroceryList(ingredientId, userId)
   }
 
+  const imgSelect = (ingredient) => {
+    const selected = document.getElementById(ingredient.id).style;
+    if (selected.borderWidth === '4px') {
+      selected.borderWidth = '0px';
+      removeIngredient(ingredient.Name);
+    } else if (selectedIngredients.length < 3){
+      selected.borderWidth = '4px';
+      selected.borderColor = 'rgb(224, 109, 31)';
+      selectIngredient(ingredient.Name);
+    } else {
+      alert('You already have 3 items selected, please remove one if you wish to add it')
+    }
+  }
+
   return props.ingredients.map(ingredient => {
     // const { addToGroceryList } = props;
     return (
@@ -40,8 +54,8 @@ const Ingredient = props => {
         xs={{ size: 12 }}
         className="mb-3"
       >
-        <Card id="ingredient-card" key={ingredient.id}>
-          <CardImg top width="100%" src={ingredient.URL} alt="Card image cap" />
+        <Card className='card-pointer' id={ingredient.id} key={ingredient.id} >
+          <CardImg className='card-img' top width="100%" src={ingredient.URL} style={{cursor: 'pointer'}} alt="Card image cap" onClick={() => {imgSelect(ingredient)}}/>
           <CardBody className="bg-light">
             <CardTitle className="card-title">{ingredient.Name}
               <Button id={ingredient.id + 'button'} className="float-right ml-auto card-button" disabled={false} onClick={() => addIngredient(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
