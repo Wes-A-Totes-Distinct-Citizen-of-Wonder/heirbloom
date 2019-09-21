@@ -12,7 +12,8 @@ import {
   Row,
   Col,
   Table,
-  Container
+  Container,
+  CardColumns
 } from "reactstrap";
 
 const FavRecipes = props => {

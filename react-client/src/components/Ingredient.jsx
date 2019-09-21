@@ -47,13 +47,13 @@ const Ingredient = props => {
   return props.ingredients.map(ingredient => {
     // const { addToGroceryList } = props;
     return (
-      <Col
-        xl={{ size: 3, offset: 0 }}
-        md={{ size: 4, offset: 0 }}
-        sm={{ size: 6 }}
-        xs={{ size: 12 }}
-        className="mb-3"
-      >
+      // <Col sm="3"
+      //   // xl={{ size: 3, offset: 0 }}
+      //   // md={{ size: 4, offset: 0 }}
+      //   // sm={{ size: 6 }}
+      //   // xs={{ size: 12 }}
+      //   className="mb-3"
+      // >
         <Card className='card-pointer' id={ingredient.id} key={ingredient.id} >
           <CardImg className='card-img' top width="100%" src={ingredient.URL} style={{cursor: 'pointer'}} alt="Card image cap" onClick={() => {imgSelect(ingredient)}}/>
           <CardBody className="bg-light">
@@ -76,7 +76,7 @@ const Ingredient = props => {
             </Button>
           </CardBody>
         </Card>
-      </Col>
+      // </Col>
     );
   });
 };
