@@ -211,7 +211,6 @@ class App extends Component {
   }
 
   addToGroceryList(ingredientId, userId) {
-    console.log(ingredientId, userId)
     axios.post('/api/groceryList', ({ingredientId: ingredientId, id: userId}))
       .then((result) => {
         console.log(result);
@@ -327,6 +326,7 @@ class App extends Component {
             searchSelectedIngredients={this.searchSelectedIngredients}
           />
           <PrivateRoute
+          key={Math.random()}
           path='/grocery-list'
           ingredients={ingredients}
           isAuthenticated={isAuthenticated} 

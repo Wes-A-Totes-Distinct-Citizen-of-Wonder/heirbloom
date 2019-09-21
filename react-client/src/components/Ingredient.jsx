@@ -29,9 +29,9 @@ const Ingredient = props => {
   };
 
   const addIngredient = (ingredientId, userId) => {
-    // document.getElementById(`${ingredientId}button`).disabled = true;
-    setIsClicked(!isClicked);
+    document.getElementById(`${ingredientId}button`).disabled = !isClicked;
     addToGroceryList(ingredientId, userId)
+    // setIsClicked(!isClicked);
   }
 
   const imgSelect = (ingredient) => {
@@ -53,8 +53,12 @@ const Ingredient = props => {
       .then((result) => {
         result.data
         .forEach((ingredient) => {
+          console.log('is it here?')
           document.getElementById(ingredient.id + 'button').disabled = true;
         });
+      })
+      .catch((err) => {
+        console.error(err);
       })
   })
 
@@ -62,6 +66,7 @@ const Ingredient = props => {
     // const { addToGroceryList } = props;
     return (
       <Col
+        key={Math.random()}
         xl={{ size: 3, offset: 0 }}
         md={{ size: 4, offset: 0 }}
         sm={{ size: 6 }}

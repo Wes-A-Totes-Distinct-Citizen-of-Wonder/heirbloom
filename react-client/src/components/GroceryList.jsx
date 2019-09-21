@@ -78,10 +78,10 @@ class GroceryList extends React.Component {
     conditionalRender() {
       const { groceries } = this.state;
       if(groceries.length === 0){
-        return <h3>There is no Produce in your list</h3>
+        return <tr><th>There is no Produce in your list</th></tr>
       } else {
       const groceryItem = groceries.map(grocery => (
-        <tr id={grocery.id} style={{backgroundColor: 'white'}} onClick={() => {this.toggleBasket(grocery.id)}}>
+        <tr key={Math.random()} id={grocery.id} style={{backgroundColor: 'white'}} onClick={() => {this.toggleBasket(grocery.id)}}>
           <td>
             <img src={grocery.URL} height='40%' crop='fill'>
             </img>
