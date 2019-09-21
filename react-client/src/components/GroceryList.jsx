@@ -46,9 +46,11 @@ class GroceryList extends React.Component {
       let ele = document.getElementById(groceryId)
       if(ele.style.backgroundColor === 'white'){
         ele.style.backgroundColor = '#A9A9A9';
+        ele.style.textDecoration = 'line-through';
        this.setState.clearProduce = clearProduce.push(groceryId);
       }else{
         ele.style.backgroundColor = 'white';
+        ele.style.textDecoration = 'none';
         let remove = clearProduce.indexOf(groceryId);
         let leaveGrocery = clearProduce.splice(remove, 1);
         this.setState.clearProduce = leaveGrocery;
