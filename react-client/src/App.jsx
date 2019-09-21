@@ -210,7 +210,7 @@ class App extends Component {
     }
   }
 
-   (ingredientId, userId) {
+  addToGroceryList(ingredientId, userId) {
     axios.post('/api/groceryList', ({ingredientId: ingredientId, id: userId}))
       .then((result) => {
         console.log(result);
