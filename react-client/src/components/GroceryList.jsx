@@ -43,8 +43,7 @@ class GroceryList extends React.Component {
           groceries: response.data
         })
       })
-      .catch((err) => { console.error(err); })
-      console.log('mounted')
+      .catch((err) => { console.error(err); });
     }
 
     toggleBasket (groceryId) {
