@@ -99,7 +99,7 @@ class GroceryList extends React.Component {
       const { groceries, backGround } =this.state;
         return(
           <Fragment>
-              <NavBar user={this.props.user}></NavBar>
+              <NavBar user={this.props.user} makeGroceries={this.makeGroceries}></NavBar>
             <Container>
           <Row className='mt-10 ml-1'>
           <Button href='#' className="card-button mr-3 mb-3 sm-12" onClick={() => this.clearGrocerisList()}><i className="fas fa-shopping-basket" data-toggle="tooltip" data-placement="top" title="Click to remove already selected produce " ></i></Button><h3>Grocery List</h3>

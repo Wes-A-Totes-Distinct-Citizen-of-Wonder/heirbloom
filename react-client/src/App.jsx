@@ -326,7 +326,6 @@ class App extends Component {
             searchSelectedIngredients={this.searchSelectedIngredients}
           />
           <PrivateRoute
-          key={Math.random()}
           path='/grocery-list'
           ingredients={ingredients}
           isAuthenticated={isAuthenticated} 

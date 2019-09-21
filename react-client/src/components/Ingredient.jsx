@@ -53,8 +53,10 @@ const Ingredient = props => {
       .then((result) => {
         result.data
         .forEach((ingredient) => {
-          console.log('is it here?')
-          document.getElementById(ingredient.id + 'button').disabled = true;
+          const el = document.getElementById(ingredient.id + 'button')
+          if (el){
+            el.disabled = true;
+           }
         });
       })
       .catch((err) => {

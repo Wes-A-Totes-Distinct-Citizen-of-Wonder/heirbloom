@@ -26,6 +26,7 @@ class NavBar extends Component {
     this.handleProfile = this.handleProfile.bind(this);
     this.handleFavRecipes = this.handleFavRecipes.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleGroceryList = this.handleGroceryList.bind(this);
 
     this.state = {
       isOpen: false
@@ -62,6 +63,12 @@ class NavBar extends Component {
     // this.props.history.push("/recipe-list")
   }
 
+  handleGroceryList() {
+    this.props.makeGroceries();
+    this.props.history.push("/grocery-list");
+  }
+
+
   render() {
     const { history, user } = this.props;
     return (
@@ -88,7 +95,7 @@ class NavBar extends Component {
             )}
             {user && (
               <NavItem>
-                <NavLink onClick={() => history.push("/grocery-list")}>
+                <NavLink onClick={this.handleGroceryList}>
                   <i
                     className="fas fa-shopping-cart fa-2x"
                     id="grocery-icon"

@@ -16,6 +16,7 @@ const PrivateRoute = props => {
     handleUserUpdate,
     removeFromFavorites,
     searchSelectedIngredients,
+    makeGroceries,
     // state props being passed down
     user,
     recipes,
@@ -65,6 +66,7 @@ const PrivateRoute = props => {
             removeFromFavorites={removeFromFavorites}
             addToGroceryList={addToGroceryList}
             searchSelectedIngredients={searchSelectedIngredients}
+            makeGroceries={makeGroceries}
             {...routeProps}
           />
         ) : (
