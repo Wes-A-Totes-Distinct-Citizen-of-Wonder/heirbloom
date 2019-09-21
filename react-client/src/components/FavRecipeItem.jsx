@@ -104,7 +104,7 @@ class FavRecipeItem extends Component {
       <Collapse isOpen={this.state.collapse}>
         <Row>
           <Col sm='10'>
-            <Input type='textarea' placeholder="lg" bsSize="lg" value={notes} onChange={e => this.setState({notes: e.target.value})} />
+            <Input type='textarea' placeholder="write your notes here" bsSize="lg" value={notes} onChange={e => this.setState({notes: e.target.value})} />
           </Col>
           <Col sm='2'>
           <td>
