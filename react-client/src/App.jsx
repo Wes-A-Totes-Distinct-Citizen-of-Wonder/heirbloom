@@ -169,7 +169,7 @@ class App extends Component {
     return axios
       .post(`/api/saveFavRecipe`, selectedRecipe)
       .then(response => {
-        Swal.fire(`${recipeName} was added to your favorites.`);
+        Swal.fire({text: `${recipeName} was added to your favorites.`, confirmButtonColor: '#F7882F', type: 'success'});
         return response;
       })
       .catch(err => {
@@ -191,7 +191,7 @@ class App extends Component {
             recipe => recipe.id !== deletedRecipeId
           )
         });
-        Swal.fire(`${recipeName} was removed from your favorites.`);
+        Swal.fire({text: `${recipeName} was removed from your favorites.`, type: 'warning', confirmButtonColor: ' #F7882F'});
         return response;
       })
       .catch(err => {
