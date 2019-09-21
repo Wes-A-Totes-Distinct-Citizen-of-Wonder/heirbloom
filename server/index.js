@@ -249,14 +249,12 @@ app.get('/api/groceryList', (req, res) => {
     },
   })
     .then((result) => {
-      if (result.length === 0) {
+      if (!result.length) {
         throw new Error('No items in DB');
       }
       const ingredientIds = [];
       result.forEach((ingredient) => ingredientIds.push(ingredient.ingredientId));
-      if (ingredientIds.length) {
-        throw new Error('empty');
-      }
+
       return models.Ingredients.findAll({
         where: {
           id: {
@@ -273,7 +271,8 @@ app.get('/api/groceryList', (req, res) => {
       if (err === 'No items in DB') {
         res.status(204).send('No items in DB');
       } else {
-        console.error(err);
+        console.error(err)
+        res.status(500);
       }
     });
 });
