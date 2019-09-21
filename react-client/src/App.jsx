@@ -179,7 +179,6 @@ class App extends Component {
 
   // request to server to delete a favorited recipe to the database
   removeFromFavorites(selectedRecipe) {
-    // console.log("FAVORITE RECIPE:", selectedRecipe);
     // selectedRecipe is an array ([recipe hyperlink , recipe name, recipe image, recipe id in the db])
     const recipeName = selectedRecipe[1];
     const deletedRecipeId = selectedRecipe[3];
@@ -212,10 +211,7 @@ class App extends Component {
 
   addToGroceryList(ingredientId, userId) {
     axios.post('/api/groceryList', ({ingredientId: ingredientId, id: userId}))
-      .then((result) => {
-        console.log(result);
-        Swal.fire('Added to your grocery list')
-      })
+      .catch((err) => console.error(err))
   }
 
   render() {

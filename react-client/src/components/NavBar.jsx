@@ -98,7 +98,7 @@ class NavBar extends Component {
             )}
             {user && (
               <NavItem>
-                <NavLink onClick={this.handleGroceryList}>
+                <NavLink style={{cursor:'pointer'}} onClick={this.handleGroceryList}>
                   <i
                     className="fas fa-shopping-cart fa-2x"
                     id="grocery-icon"

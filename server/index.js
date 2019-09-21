@@ -235,7 +235,7 @@ app.post('/api/groceryList', (req, res) => {
     ingredientId: req.body.ingredientId,
   })
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.status(201).send('ingredient added');
     })
     .catch((err) => console.error(err));
@@ -266,7 +266,7 @@ app.get('/api/groceryList', (req, res) => {
       });
     })
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.status(200).send(result);
     })
     .catch((err) => {
