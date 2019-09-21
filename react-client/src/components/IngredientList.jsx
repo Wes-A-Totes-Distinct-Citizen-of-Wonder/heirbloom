@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import Ingredient from "./Ingredient.jsx";
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col, Button, CardColumns, CardDeck } from "reactstrap";
 import NavBar from "./NavBar.jsx";
 import HotList from "./HotList.jsx";
 import { toggleHot } from "./HotList.jsx";
@@ -74,6 +74,7 @@ class IngredientList extends React.Component {
         </Row>
             <HotList addToFavorites={addToFavorites} user={user}/>
         <Row className="ml-1">
+          <CardColumns>
           <Ingredient
             ingredients={ingredients}
             handleRecipes={handleRecipes}
@@ -84,6 +85,7 @@ class IngredientList extends React.Component {
             selectIngredient={this.selectIngredient}
             removeIngredient={this.removeIngredient}
           />
+          </CardColumns>
         </Row>
       </Container>
     </Fragment>

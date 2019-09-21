@@ -24,13 +24,14 @@ const RecipeListItem = props => {
     const { title, image_url, publisher, source_url } = recipe || {};
 
     return (
-      <Col
-        xl={{ size: 3, offset: 0 }}
-        md={{ size: 4, offset: 0 }}
-        xs={{ size: 12 }}
-        className="mb-3"
-      >
+      // <Col
+      //   xl={{ size: 3, offset: 0 }}
+      //   md={{ size: 4, offset: 0 }}
+      //   xs={{ size: 12 }}
+      //   className="mb-3"
+      // >
         <Card id="recipe-card" className="mb-2 bg-light">
+          <CardImg top width="25%" src={image_url} alt="Card image cap" />
           <CardBody>
             <CardTitle className="card-title">
               <a href={source_url} target="_blank">
@@ -44,11 +45,10 @@ const RecipeListItem = props => {
                 }
               ></Button>
             </CardTitle>
-            <CardImg top width="25%" src={image_url} alt="Card image cap" />
             <CardSubtitle className="card-subtitle">{publisher}</CardSubtitle>
           </CardBody>
         </Card>
-      </Col>
+      // </Col>
     );
   });
 };
