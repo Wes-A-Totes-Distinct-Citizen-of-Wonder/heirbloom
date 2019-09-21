@@ -17,6 +17,10 @@
   }
 }
 
+.card-img {
+  cursor: pointer,
+}
+
 body,
 html {
   height: 100%;
