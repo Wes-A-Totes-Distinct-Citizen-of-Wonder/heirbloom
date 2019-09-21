@@ -67,6 +67,9 @@ class NavBar extends Component {
     return (
       <div className="fixed-top container" color="#F7882F">
         <Navbar light expand="xs">
+          {/* <audio> //ausio file??
+            <source src='Beastie Boys - Fight For Your Right To Party (1).mp3' type="audio/mpeg"/>
+          </audio> */}
           <NavbarBrand href="/" id="logo" className="pl-2">
             Heir<span id="bloom">bloom</span>
           </NavbarBrand>
@@ -75,7 +78,7 @@ class NavBar extends Component {
             {/* if user props is passed down (meaning a user is logged-in), show this component) */}
             {user && (
               <NavItem>
-                <NavLink onClick={this.handleSearch}>
+                <NavLink style={{cursor:'pointer'}} onClick={this.handleSearch}>
                   <i
                     className="fas fa-search fa-2x"
                     id="search-icon"
@@ -101,20 +104,20 @@ class NavBar extends Component {
             )}
             {user && (
               <NavItem>
-                <NavLink onClick={() => history.push("/market-list")}>
+                <NavLink style={{cursor:'pointer'}} onClick={() => history.push("/market-list")}>
                   <i
                     className="fas fa-map-marker-alt fa-2x"
                     id="map-icon"
                     data-toggle="tooltip"
                     data-placement="top"
-                    title="Find a market near you"
+                    title="Markets near you"
                   ></i>
                 </NavLink>
               </NavItem>
             )}
             {user && (
               <NavItem>
-                <NavLink onClick={() => history.push("/fav-recipes")}>
+                <NavLink style={{cursor:'pointer'}} onClick={() => history.push("/fav-recipes")}>
                   <i
                     className="far fa-heart fa-2x"
                     id="fav-icon"

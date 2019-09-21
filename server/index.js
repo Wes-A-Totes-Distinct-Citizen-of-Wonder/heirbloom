@@ -202,17 +202,31 @@ app.get('/hotList', (req, res) => {
 });
 
 // connection for recipe notes
-app.post('/api/Notes', (req, res) => {
+app.post('/api/notes', (req, res) => {
   models.UsersRecipes.update(
     { notes: req.body.note },
-    { returning: true, where: { userId: req.body.userId, recipeId: req.body.recipeId } },
+    { where: { userId: req.body.userId, recipeId: req.body.recipeId } },
   )
-    .then(() => {
+    .then((result) => {
       res.status(201).send('saved your note');
     })
     .catch((err) => {
       console.log(err);
     });
+});
+
+app.get('/api/notes', (req, res) => {
+  models.UsersRecipes.findAll({
+    where: {
+      userId: req.query.userId,
+      recipeId: req.query.recipeId,
+    },
+  })
+    .then((userInfo) => {
+      console.log(userInfo[0].dataValues.notes)
+      res.status(201).send(userInfo[0].dataValues.notes);
+    })
+    .catch((err) => console.error(err));
 });
 
 app.post('/api/groceryList', (req, res) => {
@@ -221,7 +235,7 @@ app.post('/api/groceryList', (req, res) => {
     ingredientId: req.body.ingredientId,
   })
     .then((result) => {
-      console.log(result)
+      console.log(result);
       res.status(201).send('ingredient added');
     })
     .catch((err) => console.error(err));
@@ -235,6 +249,9 @@ app.get('/api/groceryList', (req, res) => {
     },
   })
     .then((result) => {
+      if (result.length === 0) {
+        throw new Error('No items in DB');
+      }
       const ingredientIds = [];
       result.forEach((ingredient) => ingredientIds.push(ingredient.ingredientId));
 
@@ -250,7 +267,30 @@ app.get('/api/groceryList', (req, res) => {
       console.log(result);
       res.status(200).send(result);
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      if (err === 'No items in DB') {
+        res.status(204).send('No items in DB');
+      } else {
+        console.error(err);
+      }
+    });
+});
+
+app.post('/api/removeGroceries', (req, res) => {
+  console.log(req.body, 'remove Groceries');
+  const { Op } = Sequelize;
+  models.groceryList.destroy({
+    where: {
+      userId: req.body.userId,
+      ingredientId: {
+        [Op.or]: req.body.ingredientIds,
+      },
+    },
+  }).then(() => {
+    res.send(201);
+  }).catch((err) => {
+    console.error(err);
+  });
 });
 
 app.use(express.static(path.join(__dirname, '/../react-client/public')));
