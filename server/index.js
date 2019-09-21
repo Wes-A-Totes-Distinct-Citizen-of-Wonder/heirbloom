@@ -14,6 +14,8 @@ const {
   getRecipes,
 } = require('./apiHelpers');
 
+const { Op } = Sequelize;
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({
@@ -242,7 +244,7 @@ app.post('/api/groceryList', (req, res) => {
 });
 
 app.get('/api/groceryList', (req, res) => {
-  const { Op } = Sequelize;
+  
   models.groceryList.findAll({
     where: {
       userId: req.query.id,
@@ -270,7 +272,7 @@ app.get('/api/groceryList', (req, res) => {
       res.status(200).send(result);
     })
     .catch((err) => {
-      if (err === 'No items in DB') {
+      if (err.message === 'No items in DB') {
         res.status(204).send('No items in DB');
       } else {
         console.error(err)

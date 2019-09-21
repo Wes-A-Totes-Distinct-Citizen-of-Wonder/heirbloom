@@ -53,13 +53,15 @@ const Ingredient = props => {
   useEffect(() => {
     axios.get(`/api/groceryList?id=${user.id}`)
       .then((result) => {
-        result.data
-        .forEach((ingredient) => {
-          const el = document.getElementById(ingredient.id + 'button')
-          if (el){
-            el.disabled = true;
-           }
-        });
+        if (result.data.length){
+          result.data
+          .forEach((ingredient) => {
+            const el = document.getElementById(ingredient.id + 'button')
+            if (el){
+              el.disabled = true;
+            }
+          });
+        }
       })
       .catch((err) => {
         console.error(err);
