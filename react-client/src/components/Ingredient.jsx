@@ -28,6 +28,7 @@ const Ingredient = props => {
 
   const addIngredient = (ingredientId, userId) => {
     document.getElementById(`${ingredientId}button`).disabled = true;
+    Swal.fire({text: 'Produce added to grocery List', type: 'success', confirmButtonColor: '#F7882F' })
     addToGroceryList(ingredientId, userId)
   }
 

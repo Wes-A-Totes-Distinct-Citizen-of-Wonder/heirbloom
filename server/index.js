@@ -223,7 +223,7 @@ app.get('/api/notes', (req, res) => {
     },
   })
     .then((userInfo) => {
-      console.log(userInfo[0].dataValues.notes)
+      console.log(userInfo[0].dataValues.notes);
       res.status(201).send(userInfo[0].dataValues.notes);
     })
     .catch((err) => console.error(err));

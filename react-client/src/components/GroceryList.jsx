@@ -62,7 +62,8 @@ class GroceryList extends React.Component {
         .then((result) =>{
           Swal.fire({
             text: "Groceries have been deleted",
-            type: "success"
+            type: "success",
+            confirmButtonColor: '#F7882F'
         }).then(function() {
             window.location = "/grocery-list";
         });
