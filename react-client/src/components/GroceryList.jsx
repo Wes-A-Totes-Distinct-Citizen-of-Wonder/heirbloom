@@ -76,6 +76,7 @@ class GroceryList extends React.Component {
     conditionalRender() {
       const { groceries } = this.state;
       if(groceries.length === 0){
+
         return <h3 className="ml-1">There is no produce in your list</h3>
       } else {
       const groceryItem = groceries.map(grocery => (
