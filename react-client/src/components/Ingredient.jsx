@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { withRouter } from "react-router-dom";
 import {
   Col,
@@ -17,6 +17,8 @@ const Ingredient = props => {
   
   const { addToGroceryList, handleRecipes, user } = props
 
+  const [ isClicked, setIsClicked ] = useState(false);
+
   const handleRecipesAndRedirect = selectedIngredient => {
     // const { handleRecipes } = props;
     // use App.Jsx's handleRecipes function which sends an api request to get the recipes with the selectedIngredient
@@ -27,6 +29,7 @@ const Ingredient = props => {
 
   const addIngredient = (ingredientId, userId) => {
     document.getElementById(`${ingredientId}button`).disabled = true;
+    setIsClicked(!isClicked);
     addToGroceryList(ingredientId, userId)
   }
 
@@ -44,7 +47,7 @@ const Ingredient = props => {
           <CardImg top width="100%" src={ingredient.URL} alt="Card image cap" />
           <CardBody className="bg-light">
             <CardTitle className="card-title">{ingredient.Name}
-              <Button id={ingredient.id + 'button'} className="float-right ml-auto card-button" disabled={false} onClick={() => addIngredient(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
+              <Button id={ingredient.id + 'button'} className="float-right ml-auto card-button" disabled={isClicked} onClick={() => addIngredient(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
             </CardTitle>
             <CardText>{ingredient.Description}</CardText>
             <hr></hr>
