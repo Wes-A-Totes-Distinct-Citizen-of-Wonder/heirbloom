@@ -213,6 +213,10 @@ class App extends Component {
   addToGroceryList(ingredientId, userId) {
     console.log(ingredientId, userId)
     axios.post('/api/groceryList', ({ingredientId: ingredientId, id: userId}))
+      .then((result) => {
+        console.log(result);
+        Swal.fire('Added to your grocery list')
+      })
   }
 
   searchSelectedIngredients() {

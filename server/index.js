@@ -253,7 +253,9 @@ app.get('/api/groceryList', (req, res) => {
         throw new Error('No items in DB');
       }
       const ingredientIds = [];
-      result.forEach((ingredient) => ingredientIds.push(ingredient.ingredientId));
+      result.forEach((ingredient) => {
+        ingredientIds.push(ingredient.ingredientId);
+      });
 
       return models.Ingredients.findAll({
         where: {

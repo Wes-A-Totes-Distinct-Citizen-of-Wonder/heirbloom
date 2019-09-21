@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { withRouter } from "react-router-dom";
+import axios from 'axios';
 import {
   Col,
   Card,
@@ -28,7 +29,7 @@ const Ingredient = props => {
   };
 
   const addIngredient = (ingredientId, userId) => {
-    document.getElementById(`${ingredientId}button`).disabled = true;
+    // document.getElementById(`${ingredientId}button`).disabled = true;
     setIsClicked(!isClicked);
     addToGroceryList(ingredientId, userId)
   }
@@ -47,6 +48,16 @@ const Ingredient = props => {
     }
   }
 
+  useEffect(() => {
+    axios.get(`/api/groceryList?id=${user.id}`)
+      .then((result) => {
+        result.data
+        .forEach((ingredient) => {
+          document.getElementById(ingredient.id + 'button').disabled = true;
+        });
+      })
+  })
+
   return props.ingredients.map(ingredient => {
     // const { addToGroceryList } = props;
     return (
@@ -61,7 +72,7 @@ const Ingredient = props => {
           <CardImg className='card-img' top width="100%" src={ingredient.URL} style={{cursor: 'pointer'}} alt="Card image cap" onClick={() => {imgSelect(ingredient)}}/>
           <CardBody className="bg-light">
             <CardTitle className="card-title">{ingredient.Name}
-              <Button id={ingredient.id + 'button'} className="float-right ml-auto card-button" disabled={isClicked} onClick={() => addIngredient(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
+              <Button id={ingredient.id + 'button'} className="float-right ml-auto card-button" disabled={false} onClick={() => addIngredient(ingredient.id, user.id)}><i className="fas fa-shopping-cart" title="add to grocery list" >+</i></Button>
             </CardTitle>
             <CardText>{ingredient.Description}</CardText>
             <hr></hr>
