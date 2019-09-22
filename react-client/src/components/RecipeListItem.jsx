@@ -30,7 +30,7 @@ const RecipeListItem = props => {
       //   xs={{ size: 12 }}
       //   className="mb-3"
       // >
-        <Card id="recipe-card" className="mb-2 bg-light">
+        <Card key={Math.random()}id="recipe-card" className="mb-2 bg-light">
           <CardImg top width="25%" src={image_url} alt="Card image cap" />
           <CardBody>
             <CardTitle className="card-title">

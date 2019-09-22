@@ -32,13 +32,18 @@ class GroceryList extends React.Component {
           clearProduce: [],
         }
         this.toggleBasket= this.toggleBasket.bind(this);
-        this.makeGroceries= this.makeGroceries.bind(this);
         this.clearGrocerisList = this.clearGrocerisList.bind(this);
         this.conditionalRender = this.conditionalRender.bind(this);
     }
     componentDidMount() {
       window.scrollTo(0, 0);
-      this.makeGroceries();
+      axios.get(`/api/groceryList?id=${this.props.user.id}`)
+      .then(response => {
+        this.setState({
+          groceries: response.data
+        })
+      })
+      .catch((err) => { console.error(err); });
     }
 
     toggleBasket (groceryId) {
@@ -47,9 +52,11 @@ class GroceryList extends React.Component {
       let ele = document.getElementById(groceryId)
       if(ele.style.backgroundColor === 'white'){
         ele.style.backgroundColor = '#A9A9A9';
+        ele.style.textDecoration = 'line-through';
        this.setState.clearProduce = clearProduce.push(groceryId);
       }else{
         ele.style.backgroundColor = 'white';
+        ele.style.textDecoration = 'none';
         let remove = clearProduce.indexOf(groceryId);
         let leaveGrocery = clearProduce.splice(remove, 1);
         this.setState.clearProduce = leaveGrocery;
@@ -70,25 +77,25 @@ class GroceryList extends React.Component {
         })
     } 
 
-    makeGroceries() {
-      return axios.get(`/api/groceryList?id=${this.props.user.id}`)
-      .then(response => {
-        this.setState({
-          groceries: response.data
-        })
-      })
-    }
+    // makeGroceries() {
+    //   axios.get(`/api/groceryList?id=${this.props.user.id}`)
+    //   .then(response => {
+    //     this.setState({
+    //       groceries: response.data
+    //     })
+    //   })
+    // }
 
     conditionalRender() {
       const { groceries } = this.state;
       if(groceries.length === 0){
 
-        return <h3 className="ml-1">There is no produce in your list</h3>
+        return <tr><th>There is no produce in your list</th></tr>
       } else {
       const groceryItem = groceries.map(grocery => (
-        <tr id={grocery.id} style={{backgroundColor: 'white', cursor: 'pointer'}} onClick={() => {this.toggleBasket(grocery.id)}}>
+        <tr key={Math.random()}id={grocery.id} style={{backgroundColor: 'white', cursor: 'pointer'}} onClick={() => {this.toggleBasket(grocery.id)}}>
           <td>
-            <img src={grocery.URL} height='40%' crop='fill'>
+            <img src={grocery.URL} height='40%' crop='fill' alt=''>
             </img>
           </td>
           <td>{grocery.Name}</td>

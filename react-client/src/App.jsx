@@ -179,7 +179,6 @@ class App extends Component {
 
   // request to server to delete a favorited recipe to the database
   removeFromFavorites(selectedRecipe) {
-    // console.log("FAVORITE RECIPE:", selectedRecipe);
     // selectedRecipe is an array ([recipe hyperlink , recipe name, recipe image, recipe id in the db])
     const recipeName = selectedRecipe[1];
     const deletedRecipeId = selectedRecipe[3];
@@ -211,12 +210,8 @@ class App extends Component {
   }
 
   addToGroceryList(ingredientId, userId) {
-    console.log(ingredientId, userId)
     axios.post('/api/groceryList', ({ingredientId: ingredientId, id: userId}))
-  }
-
-  searchSelectedIngredients() {
-    alert('this works!!!!')
+      .catch((err) => console.error(err))
   }
 
   render() {
@@ -278,7 +273,6 @@ class App extends Component {
             handleRecipes={this.handleRecipes}
             addToFavorites={this.addToFavorites}
             addToGroceryList={this.addToGroceryList}
-            searchSelectedIngredients={this.searchSelectedIngredients}
           />
           <PrivateRoute
             path="/market-list"
@@ -320,10 +314,9 @@ class App extends Component {
             component={RecipeList}
             setAuth={this.setAuthentication}
             addToFavorites={this.addToFavorites}
-            searchSelectedIngredients={this.searchSelectedIngredients}
           />
           <PrivateRoute
-          path='/grocery-list'
+          path="/grocery-list"
           ingredients={ingredients}
           isAuthenticated={isAuthenticated} 
           userLocation={userLocation}

@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { withRouter } from "react-router-dom";
+import axios from 'axios';
 import {
   Col,
   Card,
@@ -18,6 +19,8 @@ const Ingredient = props => {
   
   const { addToGroceryList, handleRecipes, user, selectedIngredients, selectIngredient, removeIngredient } = props
 
+  // const [ isClicked, setIsClicked ] = useState(false);
+
   const handleRecipesAndRedirect = selectedIngredient => {
     // const { handleRecipes } = props;
     // use App.Jsx's handleRecipes function which sends an api request to get the recipes with the selectedIngredient
@@ -30,6 +33,7 @@ const Ingredient = props => {
     document.getElementById(`${ingredientId}button`).disabled = true;
     Swal.fire({text: 'Produce added to grocery List', type: 'success', confirmButtonColor: '#F7882F' })
     addToGroceryList(ingredientId, userId)
+    // setIsClicked(!isClicked);
   }
 
   const imgSelect = (ingredient) => {
@@ -39,12 +43,30 @@ const Ingredient = props => {
       removeIngredient(ingredient.Name);
     } else if (selectedIngredients.length < 3){
       selected.borderWidth = '4px';
-      selected.borderColor = 'rgb(224, 109, 31)';
+      selected.borderColor = 'rgb(225, 109, 31)';
       selectIngredient(ingredient.Name);
     } else {
       Swal.fire({text:'You already have 3 items selected, please remove one if you wish to add it', type: error})
     }
   }
+
+  useEffect(() => {
+    axios.get(`/api/groceryList?id=${user.id}`)
+      .then((result) => {
+        if (result.data.length){
+          result.data
+          .forEach((ingredient) => {
+            const el = document.getElementById(ingredient.id + 'button')
+            if (el){
+              el.disabled = true;
+            }
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  })
 
   return props.ingredients.map(ingredient => {
     // const { addToGroceryList } = props;

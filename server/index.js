@@ -14,6 +14,8 @@ const {
   getRecipes,
 } = require('./apiHelpers');
 
+const { Op } = Sequelize;
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({
@@ -235,25 +237,27 @@ app.post('/api/groceryList', (req, res) => {
     ingredientId: req.body.ingredientId,
   })
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.status(201).send('ingredient added');
     })
     .catch((err) => console.error(err));
 });
 
 app.get('/api/groceryList', (req, res) => {
-  const { Op } = Sequelize;
+  
   models.groceryList.findAll({
     where: {
       userId: req.query.id,
     },
   })
     .then((result) => {
-      if (result.length === 0) {
+      if (!result.length) {
         throw new Error('No items in DB');
       }
       const ingredientIds = [];
-      result.forEach((ingredient) => ingredientIds.push(ingredient.ingredientId));
+      result.forEach((ingredient) => {
+        ingredientIds.push(ingredient.ingredientId);
+      });
 
       return models.Ingredients.findAll({
         where: {
@@ -264,14 +268,15 @@ app.get('/api/groceryList', (req, res) => {
       });
     })
     .then((result) => {
-      console.log(result);
+      // console.log(result);
       res.status(200).send(result);
     })
     .catch((err) => {
-      if (err === 'No items in DB') {
+      if (err.message === 'No items in DB') {
         res.status(204).send('No items in DB');
       } else {
-        console.error(err);
+        console.error(err)
+        res.status(500);
       }
     });
 });

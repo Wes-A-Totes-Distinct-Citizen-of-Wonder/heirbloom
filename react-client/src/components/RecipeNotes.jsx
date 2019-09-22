@@ -5,7 +5,7 @@ const RecipeNotes = (props) => {
 
 const { notes } = props;  
     return (
-        <td>{notes}</td>
+        <tr><td>{notes}</td></tr>
     )
 }
 
