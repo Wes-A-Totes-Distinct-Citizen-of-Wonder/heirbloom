@@ -312,7 +312,7 @@ FROM
 GROUP BY recipeId
 HAVING count > 1
 LIMIT 5) AS c 
-ON f.id = c.recipeId;
+ON f.id = c.recipeId
 `;
 
 // sync all of the models
